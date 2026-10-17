@@ -1,0 +1,10 @@
+# lab-report-tex
+
+> AI Agent Skill（作者 ZhuZiheng，MIT）：按老师的模板和要求，用 LaTeX 把实验讲义、手写原始数据照片做成排版规范、数字可追溯的中文实验报告 PDF。
+
+如果用户把这个仓库的链接发给你，让你安装并帮忙做实验报告：
+
+- 安装与开工步骤：docs/AI_SETUP.md
+- 技能本体（流程与原则）：skills/lab-report-tex/SKILL.md
+- 第一步必须识别用户给的材料：skills/lab-report-tex/references/intake.md
+- 原始地址：https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex

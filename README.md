@@ -10,6 +10,22 @@
 
 作者 **ZhuZiheng**
 
+</div>
+
+> ### 🤖 最快的用法：把这个链接发给你的 AI
+>
+> 在豆包工作、Claude Code、Codex、WorkBuddy 等能操作电脑的 AI 里，复制粘贴这句话：
+>
+> ```
+> 请阅读 https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex 里的 docs/AI_SETUP.md，帮我把这个实验报告技能装好；装好后我把实验材料都发给你，你先识别每个文件是什么，再帮我做实验报告。
+> ```
+>
+> 然后把**模板、老师要求、讲义/PPT、原始数据照片**一股脑发过去就行，不用整理——AI 会先识别每个文件是什么，列出清单让你确认，再开始做。
+>
+> *（给 AI：请按 [docs/AI_SETUP.md](docs/AI_SETUP.md) 操作。）*
+
+<div align="center">
+
 [新手教程](#新手教程) · [快速开始](#快速开始) · [效果](#效果) · [工作原理](#工作原理) · [兼容的-agent](#兼容的-agent) · [English](#english)
 
 </div>
@@ -58,6 +74,7 @@
 | 📷 **照片处理** | 手机照片按 EXIF 转正、压缩，原样放进 PDF（不裁剪、不修图） |
 | 📑 **要求驱动** | 从模板和讲义抽出需求清单（章节顺序、评分项、点名要做的图表）；`build.py --require` 编译时核对缺失/顺序、遗留占位符、封面空字段 |
 | 🧪 **五类实验打法** | 测定一个量 / 特性曲线 / 分布 / 仪器导出数据 / 观察定性，各自的“数据处理”和“结果陈述”写法——从 25 份真实报告总结而来（[report-patterns.md](skills/lab-report-tex/references/report-patterns.md)） |
+| 🗂️ **自动识别材料** | 一堆文件直接扔进来：`inventory.py` 粗分 + AI 逐个打开确认（照片看图），分清模板 / 要求 / 讲义 / 原始记录 / 仪器数据 / 预习试卷 / 参考报告，列《材料清单》给你确认（[intake.md](skills/lab-report-tex/references/intake.md)） |
 | 🧭 **流程规范** | 数据转写 → 可疑项清单 → 用户确认 → 冻结；不编造数据、签名、日期 |
 
 ## 新手教程

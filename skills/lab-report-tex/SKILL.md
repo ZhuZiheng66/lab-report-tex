@@ -20,9 +20,19 @@ metadata:
 
 1. 第一次在这台机器上用：`python <skill>/scripts/check_env.py`，缺什么按提示装（装不了 LaTeX 就用 Overleaf，见 [references/platforms.md](references/platforms.md)）。
 2. 找课程配置 `lab-profile.md`（当前目录或上级目录）：学校封面样式、个人信息、命名规则、页序、解释器路径。**没有就按 [references/profile-template.md](references/profile-template.md) 问用户后建一个**，以后复用。
-3. 一次问清（能从材料推出的不问）：实验名称与日期、原始数据在哪（照片/仪器导出文件）、有没有预习试卷页、提交日期（不定就留空）、有没有指定参考的报告。
+3. 一次问清（能从材料推出的不问）：实验名称与日期、提交日期（不定就留空）、材料里缺的东西。
 
-## 1. 读材料，写需求清单
+## 1. 识别材料（必做，写任何内容之前）
+
+用户常把模板、要求、讲义、原始记录照片、学长报告、预习试卷一股脑扔过来，文件名也不规范。**先认清每个文件是什么**，按 [references/intake.md](references/intake.md)：
+
+1. `python <skill>/scripts/inventory.py <用户给的文件或文件夹>` 粗分（压缩包先解压到新文件夹，.doc/.ppt 先另存为新格式）。
+2. **逐个打开确认**，照片和扫描件一律看图：是原始记录、预习试卷、仪器铭牌还是现象照片？是不是本次实验的？
+3. 把《材料清单》（文件 → 认定为 → 依据 → 用途，外加“缺少”“有疑问”）发给用户确认，确认后再往下走。
+
+最容易出错的是**把填好的参考报告当成模板**、**把别人的数据当成用户的原始记录**——清单里这两类要特别标明。
+
+## 2. 读材料，写需求清单
 
 | 材料 | 用途 |
 |---|---|
@@ -34,7 +44,7 @@ metadata:
 
 把模板和讲义里的硬性要求抄成工作目录下的 `requirements.md`（章节顺序、评分项、讲义要求的每张图/表/计算、思考题、命名、页序），给用户过目。然后判断实验类型（测定一个量 / 特性曲线 / 分布 / 仪器导出 / 观察定性，可混合），它决定数据处理和结果怎么写——见 [references/report-patterns.md](references/report-patterns.md)。
 
-## 2. 建工作目录
+## 3. 建工作目录
 
 ```
 <实验名>/
@@ -44,11 +54,11 @@ metadata:
   data/ 原始与派生 CSV   tab/ 生成的表格   fig/ 生成的图   raw/ 处理后的照片   results.tex 结果宏
 ```
 
-## 3. 原始数据：转写 → 核对 → 冻结
+## 4. 原始数据：转写 → 核对 → 冻结
 
 按 [references/data-capture.md](references/data-capture.md)：逐格转写成 CSV（数值按原样字符串，不补零不删零），列出可疑项（负号、跳变、涂改、看不清），用物理趋势交叉检查，**一次性让用户确认**。仪器导出文件原样保留，只读不改。确认前不写进正文。
 
-## 4. 计算、作图、出表（结果全部写成宏）
+## 5. 计算、作图、出表（结果全部写成宏）
 
 - `fit_plot.py`：直线 / 过原点 / 多项式拟合，曲线（排序连线）、回线（按记录顺序连）、散点；分组、对数轴、找峰谷、外延到 0、参考线；读 CSV 或仪器导出的 TXT；输出矢量 PDF；拟合结果 `--macros results.tex --name Fit` 写成 `\FitK \FitB \FitR …`。
 - `uncert.py mean|diff|fmt`：A/B 类合成、逐差法、按规则修约；`--macros results.tex --name X` 写出 `\XVal \XU \XRel`。
@@ -57,11 +67,11 @@ metadata:
 
 正文写 `$k=\num{\FitK}$`、`$(\XVal\pm\XU)$\,eV`，**不手抄数字**。规则见 [references/data-and-uncertainty.md](references/data-and-uncertainty.md)。
 
-## 5. 写 report.tex
+## 6. 写 report.tex
 
 `\labset{...}` 填封面（取自 lab-profile.md；日期、地点不推测）。`labsection` 按 requirements.md 的章节名和顺序写；`\labgrading{...}` 照本次模板的评分项；最后 `\labcomment`、`\labphotos{原始数据}{...}`、`\labphotos{预习试卷}{...}`。各章写法见 [references/writing.md](references/writing.md)，文档类用法与排版坑见 [references/latex.md](references/latex.md)。
 
-## 6. 编译与核对
+## 7. 编译与核对
 
 ```
 python <skill>/scripts/prep_photos.py 照片1.jpg 照片2.jpg@90 --out raw
@@ -71,7 +81,7 @@ python <skill>/scripts/build.py report.tex --require "<requirements.md 里的章
 
 `build.py` 编译后报告：错误、缺字、未定义引用、找不到的文件、超宽行；章节缺失或顺序不对；正文遗留的“……”/TODO/占位符；封面空字段。**退出码非 0 就先修。**然后看 `preview/contact.png` 和逐页 PNG：封面、表格是否被拆页、图是否清晰、公式上下标、照片方向、页序、无空白页。最后对照 [report-patterns.md 的检查表](references/report-patterns.md#5-一份高分报告的检查表) 和 requirements.md 逐项勾。
 
-## 7. 交付
+## 8. 交付
 
 说清三件事：写了什么；核对了什么（数据 ↔ 照片 ↔ CSV ↔ 正文，需求清单逐项）；还缺什么（日期、签字页、需用户确认的数据、需用户自己补的手写内容）。PDF 和 report.tex 一起给。
 
