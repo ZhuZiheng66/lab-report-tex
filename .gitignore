@@ -1,0 +1,17 @@
+# LaTeX 中间文件
+build/
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+# 预览图（docs/ 里的截图除外）
+preview/
+# Python
+__pycache__/
+*.pyc
+dist/
+# 个人课程配置（含姓名学号）
+lab-profile.md

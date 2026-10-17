@@ -1,0 +1,133 @@
+% 示例：金属电子逸出功的测定（深圳大学《大学物理实验（2）》格式）
+% 数据为一次真实实验记录；封面个人信息已替换为占位。
+% 编译：python analysis.py && python ../../skills/lab-report-tex/scripts/build.py report.tex --thumbs preview
+\documentclass{labreport}
+\input{results.tex}
+
+\labset{
+  school     = {深圳大学},
+  cover      = {szu},
+  coursename = {大学物理实验（2）},
+  coursecode = {1000001-00},
+  expname    = {金属电子逸出功的测定},
+  college    = {物理与电子科学学院},
+  teacher    = {李老师},
+  author     = {张三},
+  studentid  = {2025000000},
+  group      = {1},
+  location   = {实验楼A301},
+  date       = {2026年10月10日},
+  submitdate = {2026年10月12日},
+}
+
+\begin{document}
+\makecover
+
+\begin{labsection}{实验目的}
+1．了解金属热电子发射的基本规律；\par
+2．学习用外延法测定不同灯丝温度下的零场热电子发射电流；\par
+3．学习用理查逊直线法测定钨的逸出电势和逸出功；\par
+4．掌握作图法和最小二乘拟合处理实验数据的方法。
+\end{labsection}
+
+\begin{labsection}{实验原理}
+\labsub{热电子发射与理查逊-杜西曼公式}
+真空二极管的阴极用被测金属钨丝制成，通电加热后阴极温度升高，金属内电子的能量分布改变，动能大于逸出功的电子数目增多，这些电子能够克服表面势垒从金属表面逸出，形成热电子发射。在阳极未加电压时，外电路中也存在热发射电流，称为零场电流。零场电流由理查逊-杜西曼公式确定：
+\begin{equation}
+  I = AST^2 \exp\left(-\frac{eV}{k_\mathrm{B}T}\right)
+  \label{eq:rd}
+\end{equation}
+式中 $A$ 为与阴极表面化学纯度有关的系数，单位为 \si{A/(m^2.K^2)}；$S$ 为阴极的有效发射面积；$T$ 为阴极绝对温度；$k_\mathrm{B}$ 为玻尔兹曼常数；$e$ 为电子电荷；$V$ 为电子的逸出电势，逸出功 $W=eV$。
+
+将式 \eqref{eq:rd} 两边除以 $T^2$ 再取常用对数，得
+\begin{equation}
+  \lg\frac{I}{T^2} = \lg(AS) - \frac{eV\lg e}{k_\mathrm{B}}\cdot\frac{1}{T}
+  \label{eq:line}
+\end{equation}
+即 $\lg(I/T^2)$ 与 $1/T$ 成线性关系。由直线斜率 $k=-eV\lg e/k_\mathrm{B}$ 即可求出逸出电势 $V$，这种方法称为理查逊直线法。它避开了难以准确测定的 $A$ 和 $S$。
+
+\labsub{零场电流的测量——外延法}
+热电子飞向阳极时形成空间电荷，阻碍后续电子，因此需在阳极加加速电压 $U_a$；但 $U_a$ 又会产生肖脱基效应，使测得的阳极电流 $I_a$ 大于零场电流 $I_0$。可以证明
+\begin{equation}
+  \lg I_a = \lg I_0 + b\sqrt{U_a}
+  \label{eq:schottky}
+\end{equation}
+以 $\lg I_a$ 为纵坐标、$\sqrt{U_a}$ 为横坐标作图，将直线外延到 $\sqrt{U_a}=0$，截距即为 $\lg I_0$。由式 \eqref{eq:line}，
+\begin{equation}
+  V = -k\cdot\frac{k_\mathrm{B}\ln 10}{e},\qquad \frac{k_\mathrm{B}\ln 10}{e}=\num{\KbLnE}\,\si{V/K}
+  \label{eq:v}
+\end{equation}
+\end{labsection}
+
+\begin{labsection}{实验仪器}
+THQYC-1 型金属电子逸出功实验仪、THQYC-1 型金属电子逸出功测试台（内装真空二极管）。主要仪器及参数如下：
+\labtable{主要仪器及参数}[tab:instr]{
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{4.2cm}|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\hline 仪器名称 & 主要用途 & 参数 \\ \hline
+金属电子逸出功实验仪 & 提供灯丝电流 $I_\mathrm{f}$ 与阳极电压 $U_a$ & $I_\mathrm{f}$ 分度 0.01\,A；$U_a$ 16～121\,V \\ \hline
+逸出功测试台 & 安装真空二极管及微安表 & 微安表分度值 0.01\,μA \\ \hline
+真空二极管 & 热电子发射源（钨丝阴极） & 阳极、阴极共轴圆柱形 \\ \hline
+\end{tabularx}}
+\end{labsection}
+
+\begin{labsection}{实验内容与步骤}
+1．按要求接好电路，接通电源，仪器预热约 10 分钟。\par
+2．灯丝电流 $I_\mathrm{f}$ 在 0.52～0.68\,A 范围内每隔 0.04\,A 取一个值，共 5 个。\par
+3．对应每一灯丝电流，阳极电压 $U_a$ 依次取 16、25、36、49、64、81、100、121\,V，记录阳极电流 $I_a$。\par
+4．对每组数据作 $\lg I_a$-$\sqrt{U_a}$ 图，用外延法求出各温度下的零场电流 $I_0$。\par
+5．作 $\lg(I_0/T^2)$-$1/T$ 图，由斜率求出逸出电势 $V$ 和逸出功 $W$，与公认值比较。\par
+\textbf{注意事项：}灯丝电流不可超过额定值；每次改变 $I_\mathrm{f}$ 后须预热几分钟，待灯丝温度稳定后再读数。
+\end{labsection}
+
+\begin{labsection}{数据记录和处理}
+\textbf{1．数据记录}\par
+灯丝电流与温度的对应关系见表 \ref{tab:ift}，各灯丝电流下的阳极电流见表 \ref{tab:ia}（原始记录见最后的原始数据页）。
+\input{tab/t_ift.tex}
+\input{tab/t_ia.tex}
+
+\textbf{2．外延法求零场电流}\par
+对表 \ref{tab:ia} 取常用对数得表 \ref{tab:lgia}，对每个灯丝电流作 $\lg I_a$-$\sqrt{U_a}$ 最小二乘拟合（图 \ref{fig:lgia}），结果见表 \ref{tab:ext}。
+\input{tab/t_lgia.tex}
+\labfig[0.78\linewidth]{fig/lgia.pdf}{$\lg I_a$-$\sqrt{U_a}$ 关系及外延直线}[fig:lgia]
+\input{tab/t_ext.tex}
+示例：$I_\mathrm{f}=0.60$\,A 时，拟合得斜率 $k=\num{\ExtKc}$、截距 $\lg I_0=\num{\ExtBc}$，故零场电流 $I_0=10^{\ExtBc}\,\text{μA}=0.392$\,μA。
+
+\textbf{3．理查逊直线法求逸出功}\par
+由表 \ref{tab:ift} 的温度和表 \ref{tab:ext} 的零场电流计算 $\lg(I_0/T^2)$ 与 $1/T$（表 \ref{tab:rich}），作图如图 \ref{fig:rich}。
+\input{tab/t_rich.tex}
+\labfig[0.7\linewidth]{fig/rich.pdf}{$\lg(I_0/T^2)$-$1/T$ 关系曲线}[fig:rich]
+最小二乘拟合得斜率 $k=\num{\RichKK}$\,K，相关系数 $r=\num{\RichR}$，斜率的标准不确定度 $u(k)=\num{\RichUKK}$\,K。
+
+\textbf{4．逸出功及其不确定度}\par
+由式 \eqref{eq:v}，
+\[
+  V = -k\cdot\frac{k_\mathrm{B}\ln 10}{e} = -(\num{\RichKK})\times\num{\KbLnE} = \Vraw\ \mathrm{V}
+\]
+只计拟合斜率的统计不确定度：$u(V)=u(k)\cdot k_\mathrm{B}\ln10/e=\uVraw$\,V。按有效数字规则修约，
+\[
+  W = (\WVal \pm \WU)\ \mathrm{eV}\quad(P=0.683),\qquad u(W)/W=\WRel\%
+\]
+与钨的逸出功公认值 $W_0=\WZero$\,eV 比较，相对误差
+$E=|W-W_0|/W_0=|\WVal-\WZero|/\WZero=\WErr\%$。
+\end{labsection}
+
+\begin{labsection}{结果陈述及总结}
+1．由表 \ref{tab:ext} 及图 \ref{fig:lgia}，各灯丝电流下 $\lg I_a$ 随 $\sqrt{U_a}$ 线性增大（$I_\mathrm{f}=0.68$\,A 时 $r=\ExtRmax$），符合肖脱基效应；外延得到的零场电流由 \IzeroMin\,μA 增大到 \IzeroMax\,μA，随灯丝温度升高而增大。\par
+2．由图 \ref{fig:rich}，$\lg(I_0/T^2)$ 与 $1/T$ 线性良好（$r=\num{\RichR}$），符合理查逊-杜西曼公式。\par
+3．测得钨的逸出功 $W=(\WVal\pm\WU)$\,eV，与公认值 \WZero\,eV 相比相对误差 \WErr\%。\par
+4．结果偏大的可能原因：① $I_\mathrm{f}=0.52$\,A 时 $I_a$ 仅 0.04\,μA 量级，接近微安表分辨率 0.01\,μA，该组线性较差（$r=\ExtRmin$），外延所得 $I_0$ 不确定度大；② 灯丝温度按仪器标定的 $I_\mathrm{f}$-$T$ 关系读取，标定本身有系统误差；③ 外延公式为近似关系，未计接触电位差。
+\end{labsection}
+
+\begin{labsection}{思考题}
+\question{理查逊直线法有何优点？}
+把逸出功归结为 $\lg(I/T^2)$-$1/T$ 直线的斜率，只需测量电流和温度两个量，避免了直接测定与阴极表面状况有关的系数 $A$ 和有效发射面积 $S$——这两个量在实验中很难准确测定，因此大大简化了测量并提高了精度。
+
+\question{灯丝电流为何要保持稳定？每次改变 $I_\mathrm{f}$ 后为何要预热几分钟再测量？}
+灯丝温度由灯丝电流决定，而由式 \eqref{eq:rd}，发射电流对温度极其敏感，温度稍有变化 $I$ 就显著改变。灯丝电流不稳，数据点就会偏离直线。改变 $I_\mathrm{f}$ 后灯丝需经热传导才能达到新的平衡温度，未稳定就读数，实际温度与标定的 $I_\mathrm{f}$-$T$ 关系不符，测得的数据不可靠。
+\end{labsection}
+
+\labcomment
+\labgrading{预习/20,操作及记录/40,数据处理与结果陈述/30,思考题/10}
+
+\labphotos{原始数据}{raw/raw1.jpg}
+\end{document}

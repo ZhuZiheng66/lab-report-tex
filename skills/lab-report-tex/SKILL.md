@@ -1,0 +1,81 @@
+---
+name: lab-report-tex
+description: 按老师的模板和要求，用 LaTeX（XeLaTeX + ctex）把理工科实验（物理、电路电子、光学、材料、化学、力学、仿真等）的讲义/PPT、手写原始数据照片、仪器导出数据和参考报告做成排版规范的中文实验报告 PDF：需求清单、数据转写与核对、拟合作图、逐差法与不确定度、数字自动进正文、封面/评分栏/原始数据页、按规则命名并逐项核对。用户说“做实验报告”“写大物/物理/电路实验报告”“处理实验数据、出图、算不确定度”“把这次实验做成报告/PDF”时使用。不编造测量数据、签名或手写页。
+license: MIT
+---
+
+# 实验报告（LaTeX）
+
+把一次实验的素材变成可以直接提交的 PDF。两条主线：
+
+- **要求驱动**：章节、顺序、评分栏、命名、格式都从本次的模板和老师要求里读出来，写成需求清单，最后逐项核对。不套用固定结构。
+- **数字可追溯**：数据 → 脚本 → 宏/表/图 → LaTeX。正文里每个数字都来自脚本输出，改一个数据重跑即可。
+
+下文 `<skill>` 指本文件所在目录。脚本只依赖 Python 3.7+（numpy、matplotlib、pillow，可选 pymupdf）和 XeLaTeX。
+
+## 0. 开工前
+
+1. 第一次在这台机器上用：`python <skill>/scripts/check_env.py`，缺什么按提示装（装不了 LaTeX 就用 Overleaf，见 [references/platforms.md](references/platforms.md)）。
+2. 找课程配置 `lab-profile.md`（当前目录或上级目录）：学校封面样式、个人信息、命名规则、页序、解释器路径。**没有就按 [references/profile-template.md](references/profile-template.md) 问用户后建一个**，以后复用。
+3. 一次问清（能从材料推出的不问）：实验名称与日期、原始数据在哪（照片/仪器导出文件）、有没有预习试卷页、提交日期（不定就留空）、有没有指定参考的报告。
+
+## 1. 读材料，写需求清单
+
+| 材料 | 用途 |
+|---|---|
+| 本次报告模板 / 老师通知 | **结构的依据**：章节名与顺序、评分栏、格式注释、页序、命名 |
+| 讲义 / PPT | **内容的依据**：目的、原理、仪器、步骤、点名要做的图表和计算、思考题原文 |
+| 手写原始数据照片、仪器导出文件 | **唯一数据来源** |
+| 往届/同学报告、自己上一份报告 | 只借结构和写法；数据、仪器参数、实验对象一律以本次为准 |
+| 课程的不确定度讲义 | 修约与不确定度规则（优先于通用规则） |
+
+把模板和讲义里的硬性要求抄成工作目录下的 `requirements.md`（章节顺序、评分项、讲义要求的每张图/表/计算、思考题、命名、页序），给用户过目。然后判断实验类型（测定一个量 / 特性曲线 / 分布 / 仪器导出 / 观察定性，可混合），它决定数据处理和结果怎么写——见 [references/report-patterns.md](references/report-patterns.md)。
+
+## 2. 建工作目录
+
+```
+<实验名>/
+  requirements.md   需求清单          report.tex   ← <skill>/templates/report.tex
+  labreport.cls     ← <skill>/templates/labreport.cls（文件夹可整体上传 Overleaf）
+  analysis.py       ← <skill>/templates/analysis.py（本次的计算脚本）
+  data/ 原始与派生 CSV   tab/ 生成的表格   fig/ 生成的图   raw/ 处理后的照片   results.tex 结果宏
+```
+
+## 3. 原始数据：转写 → 核对 → 冻结
+
+按 [references/data-capture.md](references/data-capture.md)：逐格转写成 CSV（数值按原样字符串，不补零不删零），列出可疑项（负号、跳变、涂改、看不清），用物理趋势交叉检查，**一次性让用户确认**。仪器导出文件原样保留，只读不改。确认前不写进正文。
+
+## 4. 计算、作图、出表（结果全部写成宏）
+
+- `fit_plot.py`：直线 / 过原点 / 多项式拟合，曲线（排序连线）、回线（按记录顺序连）、散点；分组、对数轴、找峰谷、外延到 0、参考线；读 CSV 或仪器导出的 TXT；输出矢量 PDF；拟合结果 `--macros results.tex --name Fit` 写成 `\FitK \FitB \FitR …`。
+- `uncert.py mean|diff|fmt`：A/B 类合成、逐差法、按规则修约；`--macros results.tex --name X` 写出 `\XVal \XU \XRel`。
+- `csv2tex.py`：CSV → `\labtable` 表格片段，单元格原样输出。
+- 实验专用公式写进 `analysis.py`：中间量全打印，计算列全部算出（不留空列），结果用 `texmacros.write_macros` 写宏。
+
+正文写 `$k=\num{\FitK}$`、`$(\XVal\pm\XU)$\,eV`，**不手抄数字**。规则见 [references/data-and-uncertainty.md](references/data-and-uncertainty.md)。
+
+## 5. 写 report.tex
+
+`\labset{...}` 填封面（取自 lab-profile.md；日期、地点不推测）。`labsection` 按 requirements.md 的章节名和顺序写；`\labgrading{...}` 照本次模板的评分项；最后 `\labcomment`、`\labphotos{原始数据}{...}`、`\labphotos{预习试卷}{...}`。各章写法见 [references/writing.md](references/writing.md)，文档类用法与排版坑见 [references/latex.md](references/latex.md)。
+
+## 6. 编译与核对
+
+```
+python <skill>/scripts/prep_photos.py 照片1.jpg 照片2.jpg@90 --out raw
+python <skill>/scripts/build.py report.tex --require "<requirements.md 里的章节顺序，逗号分隔>" \
+       --name "<lab-profile 的命名规则>" --outdir <成品目录> --thumbs preview
+```
+
+`build.py` 编译后报告：错误、缺字、未定义引用、找不到的文件、超宽行；章节缺失或顺序不对；正文遗留的“……”/TODO/占位符；封面空字段。**退出码非 0 就先修。**然后看 `preview/contact.png` 和逐页 PNG：封面、表格是否被拆页、图是否清晰、公式上下标、照片方向、页序、无空白页。最后对照 [report-patterns.md 的检查表](references/report-patterns.md#5-一份高分报告的检查表) 和 requirements.md 逐项勾。
+
+## 7. 交付
+
+说清三件事：写了什么；核对了什么（数据 ↔ 照片 ↔ CSV ↔ 正文，需求清单逐项）；还缺什么（日期、签字页、需用户确认的数据、需用户自己补的手写内容）。PDF 和 report.tex 一起给。
+
+## 不变的原则
+
+- 原始数据不悄悄改；涂改处按老师签字认可的值并告知用户。缺数据、缺仪器参数就问，不用“常见值”补。
+- 不伪造手写、签名、截图、日期、个人信息；不写没做过的操作和没出现的现象。
+- 结论要有数据支撑：“线性”给 r，“符合理论”给相对误差，“对称”给两端数值；数据不支持的形容词不写。误差分析具体到“哪个操作 → 影响哪个量 → 偏向 → 改进”。
+- 文字用学生口吻，篇幅与往届报告相近；不写“通过本次实验我掌握了……”一类套话。
+- 踩过的坑见 [references/lessons.md](references/lessons.md)，出问题先看它。

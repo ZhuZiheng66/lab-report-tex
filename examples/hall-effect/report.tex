@@ -1,0 +1,122 @@
+% 示例：霍尔效应及其应用（深圳大学《大学物理实验（2）》格式）
+% 数据为一次真实实验记录；封面个人信息已替换为占位。需求清单见 requirements.md。
+% 编译：python analysis.py && python ../../skills/lab-report-tex/scripts/build.py report.tex --thumbs preview
+\documentclass{labreport}
+\input{results.tex}
+
+\labset{
+  school     = {深圳大学},
+  cover      = {szu},
+  coursename = {大学物理实验（2）},
+  coursecode = {1000001-00},
+  expname    = {霍尔效应及其应用},
+  college    = {物理与电子科学学院},
+  teacher    = {李老师},
+  author     = {张三},
+  studentid  = {2025000000},
+  group      = {1},
+  location   = {实验楼A302},
+  date       = {2026年9月23日},
+  submitdate = {2026年9月30日},
+}
+
+\begin{document}
+\makecover
+
+\begin{labsection}{实验目的}
+1．了解产生霍尔效应的物理原理；\par
+2．学习控制变量法和对称测量法；\par
+3．测量霍尔器件的输出特性；\par
+4．利用霍尔元件测量长直螺线管的轴向磁场分布。
+\end{labsection}
+
+\begin{labsection}{实验原理}
+\labsub{霍尔效应}
+把载流半导体薄片置于与电流方向垂直的磁场中，载流子受洛伦兹力作用发生横向偏转，在薄片两侧积累电荷并建立横向电场。洛伦兹力与横向电场力平衡时，两侧形成稳定的霍尔电压
+\begin{equation}
+  V_H = K_H I_s B \label{eq:vh}
+\end{equation}
+式中 $I_s$ 为工作电流（mA），$B$ 为磁感应强度（T），$K_H$ 为霍尔器件灵敏度（mV/(mA$\cdot$T)），由材料与几何尺寸决定。
+
+\labsub{附加电动势与对称测量法}
+实测电压中还叠加有不等电位差、爱廷豪森效应、能斯特效应和里纪-勒杜克效应等附加电动势。分别测量 $(+B,+I_s)$、$(-B,+I_s)$、$(-B,-I_s)$、$(+B,-I_s)$ 四种组合下的电压 $V_1\sim V_4$，取
+\begin{equation}
+  V_H = \frac{V_1 - V_2 + V_3 - V_4}{4} \label{eq:sym}
+\end{equation}
+可消除大部分附加电动势。
+
+\labsub{用霍尔元件测磁场}
+由式 \eqref{eq:vh}，已知 $K_H$，测出 $V_H$ 与 $I_s$ 即可求得
+\begin{equation}
+  B = \frac{V_H}{K_H I_s} \label{eq:b}
+\end{equation}
+\end{labsection}
+
+\begin{labsection}{实验仪器}
+霍尔效应实验仪（含霍尔器件、工作电流源、励磁电流源、数字毫伏表）、长直螺线管及位移标尺。主要参数如下：
+\labtable{主要仪器及参数}[tab:instr]{
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}X|c|c|>{\centering\arraybackslash}X|}
+\hline 仪器名称 & 量程 & 分度值 & 仪器误差限（按说明书估计） \\ \hline
+数字毫伏表（mV 档） & 0～20\,mV & 0.01\,mV & 0.5\%×读数 + 1 个字 \\ \hline
+工作电流源 $I_s$ & 0～10\,mA & 0.01\,mA & 0.5\%×读数 + 1 个字 \\ \hline
+励磁电流源 $I_m$ & 0～1\,A & 0.001\,A & —— \\ \hline
+螺线管位移标尺 & 0～250\,mm & 1\,mm & —— \\ \hline
+霍尔器件 & \multicolumn{2}{c|}{$K_H=\KH$\,mV/(mA$\cdot$T)} & 标称误差 ±2\% \\ \hline
+\end{tabularx}}
+\end{labsection}
+
+\begin{labsection}{实验内容与步骤}
+1．\textbf{测绘 $V_H$-$I_s$ 曲线}：先将霍尔电压调零，取 $I_m=0.300$\,A，工作电流 $I_s$ 依次取 1.00、1.50 … 3.50\,mA，每个 $I_s$ 测四种方向组合下的 $V_1\sim V_4$。\par
+2．\textbf{测绘 $V_H$-$I_m$ 曲线}：保持 $I_s=3.00$\,mA，$I_m$ 依次取 0.100～0.500\,A（间隔 0.100\,A），同法测量。\par
+3．\textbf{测螺线管轴向磁场}：$I_s=3.00$\,mA、$I_m=0.300$\,A，霍尔片沿轴线从 $X=0$ 移到 200\,mm，每隔 10\,mm 测一组 $V_1\sim V_4$。\par
+\textbf{注意事项：}换向时先把电流调到零；霍尔片移动时不要碰到螺线管内壁；工作电流不超过 10\,mA。
+\end{labsection}
+
+\begin{labsection}{数据记录和处理}
+\textbf{1．霍尔器件输出特性}\par
+按式 \eqref{eq:sym} 计算各组 $V_H$（表 \ref{tab:is}、表 \ref{tab:im}）。示例：$I_s=\ExIs$\,mA 时，
+$V_H=[\ExVa-(\ExVb)+\ExVc-(\ExVd)]/4=\ExSum/4=\ExVH$\,mV。
+\input{tab/t_is.tex}
+\input{tab/t_im.tex}
+\labfigs{fig/vh_is.pdf}{$V_H$-$I_s$ 关系曲线}{fig:is}{fig/vh_im.pdf}{$V_H$-$I_m$ 关系曲线}{fig:im}
+最小二乘拟合：$V_H$-$I_s$ 斜率 $k_1=\num{\FitIsK}$\,mV/mA，截距 $\num{\FitIsB}$\,mV，$r=\FitIsR$；
+$V_H$-$I_m$ 斜率 $k_2=\num{\FitImK}$\,mV/A，截距 $\num{\FitImB}$\,mV，$r=\FitImR$。
+
+\textbf{2．螺线管轴向磁场分布}\par
+由式 \eqref{eq:b} 计算各点磁感应强度（表 \ref{tab:x}，图 \ref{fig:bx}）。示例：$X=\XC$\,mm 处 $V_H=\VHC$\,mV，
+$B=\VHC/(\KH\times3.00)\,\mathrm{T}=\BVal$\,mT。
+\input{tab/t_x.tex}
+\labfig[0.72\linewidth]{fig/b_x.pdf}{螺线管轴向磁场 $B$-$X$ 分布曲线}[fig:bx]
+
+\textbf{3．中心点磁场的不确定度}\par
+$V_1\sim V_4$ 为单次测量，只计 B 类。对 $V_H\approx\VHC$\,mV，各电压分量 $\Delta_\text{仪}\approx\DV$\,mV，$u_B=\Delta_\text{仪}/\sqrt3$。由式 \eqref{eq:sym}，
+\[
+  u(V_H)=\frac{\sqrt{4u_B^2}}{4}=\frac{u_B}{2}\approx\UVH\ \mathrm{mV},\qquad \frac{u(V_H)}{V_H}=\RelVH\%
+\]
+$K_H$ 标称误差 ±2\%，$u(K_H)/K_H=2\%/\sqrt3=\RelKH\%$；$I_s=3.00$\,mA 时 $u(I_s)/I_s=\RelIs\%$。式 \eqref{eq:b} 为积商形式：
+\[
+  \frac{u(B)}{B}=\sqrt{\left(\frac{u(V_H)}{V_H}\right)^2+\left(\frac{u(K_H)}{K_H}\right)^2+\left(\frac{u(I_s)}{I_s}\right)^2}=\RelB\%
+\]
+中心点磁场：$B=(\BVal\pm\BU)$\,mT（$P=0.683$）。
+\end{labsection}
+
+\begin{labsection}{结果陈述及总结}
+1．由表 \ref{tab:is} 及图 \ref{fig:is}，$V_H$ 随 $I_s$ 线性增大，斜率 $\num{\FitIsK}$\,mV/mA，$r=\FitIsR$，截距接近零，即 $V_H\propto I_s$，与式 \eqref{eq:vh} 一致。\par
+2．由表 \ref{tab:im} 及图 \ref{fig:im}，$V_H$ 随 $I_m$ 线性增大，斜率 $\num{\FitImK}$\,mV/A，$r=\FitImR$。螺线管内 $B\propto I_m$，故 $V_H\propto B$，霍尔效应测磁场的原理得到验证。\par
+3．由表 \ref{tab:x} 及图 \ref{fig:bx}，轴线上磁场中间强、两端弱：$X\approx100\sim110$\,mm 处最大，$B=(\BVal\pm\BU)$\,mT；$X=\XLeft$\,mm 端 $B=\BLeft$\,mT，$X=\XRight$\,mm 端 $B=\BRight$\,mT，两端相差约 \EndRatio\ 倍，分布并不严格对称。可能原因是位移标尺零点与螺线管端口没有对齐，测量区间相对螺线管中心偏向一侧。\par
+4．误差主要来自 $K_H$ 的标称误差（贡献 \RelKH\% ，在 \RelB\% 的合成不确定度中占主导），其次是工作电流读数；对称测量法已消除大部分附加电动势。
+\end{labsection}
+
+\begin{labsection}{思考题}
+\question{霍尔电压的大小与哪些因素有关？}
+由 $V_H=K_HI_sB$，霍尔电压与工作电流 $I_s$、磁感应强度 $B$ 成正比；灵敏度 $K_H$ 由材料（载流子类型与浓度）和厚度决定，并随温度变化。本实验中增大 $I_s$ 或 $I_m$ 时 $V_H$ 均线性增大（$r=\FitIsR$、$\FitImR$），与理论一致。
+
+\question{若已知霍尔器件的性能参数，用霍尔效应法测量一个未知磁场时，测量误差有哪些来源？}
+① $V_H$ 的测量误差（毫伏表仪器误差与读数误差）；② 对称测量法未完全消除的附加电动势；③ 工作电流 $I_s$ 的误差及波动；④ $K_H$ 的标称误差与温漂——本实验中它是最大的一项（\RelKH\%）；⑤ 霍尔片平面与磁场不垂直，实际测到 $B\cos\theta$；⑥ 霍尔片的定位误差，在磁场变化快的螺线管端部影响尤其大；⑦ 磁场本身的不均匀性。
+\end{labsection}
+
+\labcomment
+\labgrading{预习/20,操作及记录/40,数据处理与结果陈述/30,思考题/10}
+
+\labphotos{原始数据}{raw/raw1.jpg}
+\end{document}
