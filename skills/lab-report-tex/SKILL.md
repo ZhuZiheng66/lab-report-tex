@@ -2,6 +2,9 @@
 name: lab-report-tex
 description: 按老师的模板和要求，用 LaTeX（XeLaTeX + ctex）把理工科实验（物理、电路电子、光学、材料、化学、力学、仿真等）的讲义/PPT、手写原始数据照片、仪器导出数据和参考报告做成排版规范的中文实验报告 PDF：需求清单、数据转写与核对、拟合作图、逐差法与不确定度、数字自动进正文、封面/评分栏/原始数据页、按规则命名并逐项核对。用户说“做实验报告”“写大物/物理/电路实验报告”“处理实验数据、出图、算不确定度”“把这次实验做成报告/PDF”时使用。不编造测量数据、签名或手写页。
 license: MIT
+metadata:
+  author: ZhuZiheng
+  homepage: https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex
 ---
 
 # 实验报告（LaTeX）

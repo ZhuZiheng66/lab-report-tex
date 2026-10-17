@@ -8,6 +8,8 @@
 
 一个跨 Agent 的 Skill：Claude Code · Codex · WorkBuddy · 豆包 · Cursor 都能用
 
+作者 **ZhuZiheng**
+
 [新手教程](#新手教程) · [快速开始](#快速开始) · [效果](#效果) · [工作原理](#工作原理) · [兼容的-agent](#兼容的-agent) · [English](#english)
 
 </div>
@@ -78,7 +80,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/<you>/lab-report-tex.git
+git clone https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex.git
 cd lab-report-tex
 python install.py                                   # 装到本机已有的 ~/.claude、~/.codex、~/.agents
 python skills/lab-report-tex/scripts/check_env.py   # 检查 XeLaTeX、Python 依赖、中文字体
@@ -169,6 +171,12 @@ AGENTS.md                  给 Codex 等 Agent 的说明
 
 **lab-report-tex** is a cross-agent skill (Claude Code, Codex, Cursor, WorkBuddy …) that turns lab handouts and handwritten raw-data photos into a well-typeset Chinese lab report via XeLaTeX. Its core idea is *data → scripts → LaTeX macros → text*: the model writes prose, while every number in the report is computed by scripts (least-squares fitting, uncertainty propagation, rounding rules) and injected as macros, so nothing is hand-copied and everything is reproducible. `build.py` compiles, lints the log (missing glyphs, undefined refs, overfull boxes), names the PDF by the teacher's rule and renders thumbnails for visual QA.
 
+## 作者
+
+**ZhuZiheng** · [GitHub](https://github.com/tyleradamsr5n9g9c-ctrl)
+
+欢迎 Issue 和 PR：新的学校封面样式、其他学科的实验示例、使用中遇到的问题。
+
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE) © 2026 ZhuZiheng

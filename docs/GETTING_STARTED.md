@@ -79,7 +79,7 @@ brew install --cask mactex-no-gui
 **方式 A：git clone + 一键安装（推荐）**
 
 ```bash
-git clone <你的 GitHub 仓库地址> lab-report-tex
+git clone https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex.git
 cd lab-report-tex
 python install.py --target <你的客户端>
 ```
