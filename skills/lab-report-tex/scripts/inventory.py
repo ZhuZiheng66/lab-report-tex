@@ -5,6 +5,7 @@
 按文件名关键词 + 文件内容片段打分，给出“类型猜测 + 依据 + 置信度”。之后 Agent 必须逐个打开确认
 （照片一律要看图），再把《材料清单》给用户确认。规则见 references/intake.md。
 
+在**用户材料所在的文件夹**运行；skill 自身/仓库目录（含 SKILL.md、lab-report-tex*）会自动跳过。
 用法：
   python inventory.py 素材文件夹                 # 打印 Markdown 表格
   python inventory.py a.pptx b.jpg 文件夹 --json  # 另输出 JSON（最后一行）
@@ -174,6 +175,14 @@ def classify(path):
     return best, conf, '，'.join(dict.fromkeys(why)) + alt, extra
 
 
+def is_skill_dir(d):
+    """本 skill 或其仓库目录（里面的 README、示例不是用户材料）。"""
+    name = os.path.basename(os.path.normpath(d)).lower()
+    if name.startswith('lab-report-tex') or name == '_skill':
+        return True
+    return os.path.exists(os.path.join(d, 'SKILL.md')) or os.path.isdir(os.path.join(d, 'skills', 'lab-report-tex'))
+
+
 def walk(paths, depth):
     for p in paths:
         if os.path.isfile(p):
@@ -181,7 +190,11 @@ def walk(paths, depth):
             continue
         base = os.path.abspath(p).rstrip(os.sep).count(os.sep)
         for root, dirs, files in os.walk(p):
-            dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith('.')]
+            dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith('.') and not is_skill_dir(os.path.join(root, d))]
+            if is_skill_dir(root):
+                print('（跳过 skill/仓库自身的文件夹：%s）' % root, file=sys.stderr)
+                dirs[:] = []
+                continue
             if os.path.abspath(root).count(os.sep) - base >= depth:
                 dirs[:] = []
             for f in sorted(files):

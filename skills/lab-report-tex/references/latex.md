@@ -42,6 +42,17 @@
 - `①②③` 已设为中文字符类；若 build.py 报“缺字”，说明该字符当前字体没有：换成中文字体能显示的写法，或在 cls 里用 `\xeCJKDeclareCharClass{CJK}{"码位}` 加入。
 - `μ` 在正文直接写即可（Times 有），数学模式里用 `\mu`。
 - 表格内负数写成 `$-1.23$`（csv2tex 自动处理），否则是短横线。
+- `csv2tex.py` 表头**原样输出**：CSV 列名写成 `Db0_cm` 会印成带下标的怪样子。列名直接写成要显示的样子：`Db(0)/cm`、`$D_{b0}$/cm`（脚本会对这类表头给出警告）。
+
+### siunitx 与公式的常见报错（每个都会浪费一轮编译）
+
+| 写法 | 报错 | 改法 |
+|---|---|---|
+| `\SI{\A-\B}{cm}` | `Invalid number` | `\SI`/`\num` 里不能做算式。差值在 analysis.py 里算好写成宏，或拆成 `\SI{\A}{cm}-\SI{\B}{cm}` |
+| `\frac{\SI{..}{..}}{..}`、`\left[\SI{..}{..}\right]` | `Missing } inserted` | 公式里用 `\num{..}\,\mathrm{cm}`，单位写在外面 |
+| 正文行内放 `\dfrac` + `\left[...\right]` 的长式子 | Overfull 几十 pt（行内公式不能断行） | 正文用 `\tfrac`、`a/b` 的紧凑写法；完整式子放 `equation` 或 `\[ \]` |
+| `\labgrading` 后面不跟参数 | `Paragraph ended before \lab@gsplit was complete` | 评分项是**必选参数**：`\labgrading{预习/20,…}`，内容照 `read_template.py` 的输出抄 |
+| `\labgrading{预习（20分）,…}` | 表头多出“分分” | 只写 `名称/分值`，括号和“分”由文档类加 |
 - `lg`、`ln`、`exp` 用 `\lg \ln \exp`；单位用正体：`$k_\mathrm{B}$`、`\,\mathrm{eV}`。
 - 公式编号引用 `式 \eqref{eq:x}`；图表引用 `图 \ref{fig:x}`，需要编译两遍（build.py 已处理）。
 - 中文路径没问题，但文件名里别用空格和 `#%&`。

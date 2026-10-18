@@ -68,6 +68,10 @@ def main():
 
     with io.open(a.csv, encoding='utf-8-sig') as f:
         rows = [r for r in csv.reader(f) if any(c.strip() for c in r)]
+    for h in rows[0]:
+        if '$' not in h and '\\' not in h and re.search(r'_[A-Za-z]{2,}', h):
+            print('⚠ 表头“%s”像程序变量名，“_”后面会被当成下标印出来。请把 CSV 表头直接写成要显示的样子，'
+                  '如 Db(0)/cm 或 $D_{b0}$/cm' % h, file=sys.stderr)
     if a.transpose:
         rows = [list(c) for c in zip(*rows)]
     ncol = max(len(r) for r in rows)

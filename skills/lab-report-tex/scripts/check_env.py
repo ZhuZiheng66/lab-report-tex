@@ -13,7 +13,10 @@ import sys
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-PY_MODS = [('numpy', True), ('matplotlib', True), ('PIL', True), ('fitz', False)]
+PY_MODS = [('numpy', True), ('matplotlib', True), ('PIL', True), ('fitz', False), ('docx', False)]
+if os.name == 'nt':
+    PY_MODS.append(('win32com', False))
+OPTIONAL_USE = {'fitz': '缩略图、PDF 转图', 'docx': '解析 Word 模板 read_template.py', 'win32com': '转换 .doc/.ppt'}
 PKGS = ['ctex', 'xeCJK', 'fontspec', 'tcolorbox', 'siunitx', 'booktabs', 'tabularx', 'makecell',
         'caption', 'pgfkeys', 'etoolbox', 'fancyhdr', 'hyperref', 'geometry', 'amsmath']
 OK, NO, WARN = '✔', '✘', '!'
@@ -28,9 +31,10 @@ def main():
             importlib.import_module(m)
             print(' ', OK, m)
         except ImportError:
-            print(' ', NO if need else WARN, m, '' if need else '（可选：缩略图、PDF 转图）')
+            print(' ', NO if need else WARN, m, '' if need else '（可选：%s）' % OPTIONAL_USE.get(m, ''))
             bad += need
-    print('  安装：pip install numpy matplotlib pillow pymupdf')
+    print('  安装（用运行本脚本的同一个解释器）：%s -m pip install numpy matplotlib pillow pymupdf python-docx%s'
+          % (sys.executable, ' pywin32' if os.name == 'nt' else ''))
 
     print('\n[LaTeX 编译器]')
     engines = {e: shutil.which(e) for e in ('xelatex', 'latexmk', 'perl', 'tectonic', 'kpsewhich')}

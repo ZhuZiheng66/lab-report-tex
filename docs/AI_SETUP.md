@@ -35,9 +35,13 @@ python <skill>/scripts/check_env.py
 
 | 缺什么 | 怎么办 |
 |---|---|
-| Python 包（numpy、matplotlib、pillow、pymupdf） | 直接 `pip install numpy matplotlib pillow pymupdf` |
+| Python 包 | 直接 `python -m pip install numpy matplotlib pillow pymupdf python-docx`（Windows 再加 `pywin32`，用于转换 .doc/.ppt） |
 | XeLaTeX | **先问用户**（要下载几百 MB 到几 GB）。同意后：Windows `winget install MiKTeX.MiKTeX`；macOS `brew install --cask mactex-no-gui`；Linux `sudo apt install texlive-xetex texlive-lang-chinese texlive-latex-extra latexmk`。不想装就用 Overleaf（见 [platforms.md](../skills/lab-report-tex/references/platforms.md)） |
 | 中文字体 | Windows/macOS 一般自带；Linux 装 `fonts-noto-cjk` |
+
+**用同一个 Python 解释器**跑 `check_env.py`、`pip install` 和后面所有脚本（Windows 上常有好几个 Python，装到 A、用 B 跑就会误报缺包）。不确定时用 `python -m pip install …`，并把解释器的完整路径记进 lab-profile.md。
+
+需要把 .doc/.ppt 转成新格式时用 `python <skill>/scripts/convert_legacy.py 文件`，不要自己写 PowerShell COM（常被沙箱拦截，且对路径格式和中文文件名很挑剔）。需要 `pip install pywin32 python-docx`。
 
 可选的冒烟测试（1~2 分钟，确认能编译出 PDF）：`python tests/run_examples.py`，看到“全部通过”即可。
 

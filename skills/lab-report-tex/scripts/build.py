@@ -206,6 +206,8 @@ def main():
     final = os.path.join(a.outdir, name + '.pdf')
     shutil.copyfile(pdf, final)
     print('输出：%s（%.0f KB）' % (final, os.path.getsize(final) / 1024))
+    print('提示：返工重编译后，聊天客户端里的 PDF 预览可能还是旧的。请关掉旧标签重开，'
+          '或用 --name 换个文件名（如加 -v2）再给用户。')
     if a.thumbs:
         thumbs(final, a.thumbs)
     required = [s.strip() for s in re.split(r'[,，]', a.require or '') if s.strip()]
