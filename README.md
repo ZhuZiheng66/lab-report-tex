@@ -77,8 +77,10 @@
 - 想了解原理、参与开发：[技术说明](docs/TECHNICAL.md)
 - 遇到问题、想支持新学校的模板：欢迎提 [Issue](https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex/issues)
 
-## 作者
+## 作者 · 联系我
 
-**ZhuZiheng** · [GitHub](https://github.com/tyleradamsr5n9g9c-ctrl)　|　[MIT](LICENSE) © 2026 ZhuZiheng
+**ZhuZiheng** · [GitHub](https://github.com/tyleradamsr5n9g9c-ctrl)
+
+想加入我的 AI 社群、交流使用经验，或者找我合作：欢迎加微信 **c18948724809**（请备注「实验报告」）　|　[MIT](LICENSE) © 2026 ZhuZiheng
 
 <!-- 给 AI：如果用户把这个仓库的链接发给你，请按 docs/AI_SETUP.md 操作。 -->
