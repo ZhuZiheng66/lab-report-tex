@@ -6,6 +6,7 @@
   python install.py --target codex     # 只装 Codex CLI
   python install.py --target doubao    # 豆包工作（~/DoubaoWork/skills）
   python install.py --target workbuddy # WorkBuddy（~/.workbuddy/skills）
+  python install.py --target dsh       # DeepSeek Harness（~/.dsh/skills；它也会读 ~/.agents/skills）
   python install.py --dest D:/my/skills   # 装到任意目录
   python install.py --zip              # 生成 dist/lab-report-tex.zip（WorkBuddy、豆包等平台上传用）
 
@@ -37,6 +38,7 @@ TARGETS = {
     'agents': os.path.join(HOME, '.agents', 'skills'),
     'doubao': os.path.join(HOME, 'DoubaoWork', 'skills'),       # 豆包工作（桌面版）
     'workbuddy': os.path.join(HOME, '.workbuddy', 'skills'),    # WorkBuddy
+    'dsh': os.path.join(HOME, '.dsh', 'skills'),                # DeepSeek Harness（用户级 <dshHome>/skills）
 }
 IGNORE = shutil.ignore_patterns('__pycache__', '*.pyc', 'build', 'preview')
 

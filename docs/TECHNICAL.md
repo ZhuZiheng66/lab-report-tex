@@ -71,6 +71,7 @@ Skill 遵循开放的 Agent Skills 格式（文件夹 + 带 YAML 头的 `SKILL.m
 | Codex CLI | `python install.py --target codex`，或使用仓库根目录的 [AGENTS.md](../AGENTS.md) |
 | 豆包工作 | 技能 → 上传技能 → 选择文件夹 `skills/lab-report-tex`，或 `python install.py --target doubao` |
 | WorkBuddy | `python install.py --target workbuddy` |
+| DeepSeek Harness | `python install.py --target dsh` |
 | 扣子等其他平台 | `python install.py --zip`，上传 `dist/` 里的 zip |
 | Cursor / Trae / Windsurf | 把 `skills/lab-report-tex` 放进项目，规则里指向 SKILL.md |
 
@@ -108,4 +109,4 @@ AGENTS.md                  给 Codex 等 Agent 的说明
 
 ## English
 
-**lab-report-tex** is a cross-agent skill (Claude Code, Codex, Cursor, WorkBuddy …) that turns lab handouts and handwritten raw-data photos into a well-typeset Chinese lab report via XeLaTeX. Its core idea is *data → scripts → LaTeX macros → text*: the model writes prose, while every number in the report is computed by scripts (least-squares fitting, uncertainty propagation, rounding rules) and injected as macros, so nothing is hand-copied and everything is reproducible. `build.py` compiles, lints the log (missing glyphs, undefined refs, overfull boxes), names the PDF by the teacher's rule and renders thumbnails for visual QA.
+**lab-report-tex** is a cross-agent skill (Claude Code, Codex, Cursor, WorkBuddy, DeepSeek Harness …) that turns lab handouts and handwritten raw-data photos into a well-typeset Chinese lab report via XeLaTeX. Its core idea is *data → scripts → LaTeX macros → text*: the model writes prose, while every number in the report is computed by scripts (least-squares fitting, uncertainty propagation, rounding rules) and injected as macros, so nothing is hand-copied and everything is reproducible. `build.py` compiles, lints the log (missing glyphs, undefined refs, overfull boxes), names the PDF by the teacher's rule and renders thumbnails for visual QA.

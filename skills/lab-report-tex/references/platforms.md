@@ -9,6 +9,7 @@
 | 通用 Agent（`~/.agents/skills`） | `python install.py --target agents` |
 | 豆包工作（桌面版） | 技能 → 上传技能 → 选择文件夹 `skills/lab-report-tex`（或选择文件 `dist/lab-report-tex.zip`）；也可 `python install.py --target doubao` 复制到 `~/DoubaoWork/skills` |
 | WorkBuddy | `python install.py --target workbuddy` → `~/.workbuddy/skills/` |
+| DeepSeek Harness | `python install.py --target dsh` → `~/.dsh/skills/`（它按顺序找：项目 `.dsh/skills` → 项目 `.agents/skills` → 自定义目录 → `~/.dsh/skills` → `~/.agents/skills`，所以 `--target agents` 也能用） |
 | 扣子等其他支持“上传技能”的平台 | `python install.py --zip`，上传 `dist/` 里的 zip（要求 SKILL.md 在根目录的用 `-flat.zip`） |
 | Cursor / Windsurf / Trae 等 IDE Agent | 把 `skills/lab-report-tex` 放进项目，规则文件里写一句“做实验报告时先读 skills/lab-report-tex/SKILL.md” |
 | 只有聊天、不能跑命令 | 把 SKILL.md 和 references 发给模型当规范，让它产出 report.tex，自己在 Overleaf 编译 |

@@ -4,7 +4,7 @@
 
 **把实验材料交给 AI，拿回一份排版规范的实验报告 PDF**
 
-大学物理 · 数电 · 模电 · 各类理工科实验报告　|　豆包工作 · Claude Code · Codex · WorkBuddy 都能用
+大学物理 · 数电 · 模电 · 各类理工科实验报告　|　豆包工作 · Claude Code · Codex · WorkBuddy · DeepSeek Harness 都能用
 
 作者 **ZhuZiheng**
 
@@ -20,7 +20,7 @@
 请阅读 https://github.com/ZhuZiheng66/lab-report-tex 里的 docs/AI_SETUP.md，帮我把这个实验报告技能装好；装好后我把实验材料都发给你，你先识别每个文件是什么，再帮我做实验报告。
 ```
 
-> **强烈建议：不要自己手动安装任何东西。**把上面这句话发给你的 AI（豆包工作、Claude Code、Codex、WorkBuddy 等能操作电脑的 AI），它会自己下载、安装、检查环境。需要装大软件时它会先问你，你点同意就行。
+> **强烈建议：不要自己手动安装任何东西。**把上面这句话发给你的 AI（豆包工作、Claude Code、Codex、WorkBuddy、DeepSeek Harness 等能操作电脑的 AI），它会自己下载、安装、检查环境。需要装大软件时它会先问你，你点同意就行。
 
 ### ② 把材料一股脑发给它
 

@@ -2,7 +2,7 @@
 
 > ### ⭐ 强烈推荐：别自己装，让 AI 帮你装
 >
-> 把下面这句话复制给你的 AI（豆包工作、Claude Code、Codex、WorkBuddy 等），它会自己完成下面所有步骤，需要装大软件时会先问你：
+> 把下面这句话复制给你的 AI（豆包工作、Claude Code、Codex、WorkBuddy、DeepSeek Harness 等），它会自己完成下面所有步骤，需要装大软件时会先问你：
 >
 > ```
 > 请阅读 https://github.com/ZhuZiheng66/lab-report-tex 里的 docs/AI_SETUP.md，帮我把这个实验报告技能装好；装好后我把实验材料都发给你，你先识别每个文件是什么，再帮我做实验报告。
@@ -98,6 +98,7 @@ python install.py --target <你的客户端>
 | Claude Code | `python install.py --target claude` |
 | Codex CLI | `python install.py --target codex` |
 | WorkBuddy | `python install.py --target workbuddy` |
+| DeepSeek Harness | `python install.py --target dsh` |
 | 不确定 / 都要 | `python install.py --target all` |
 
 **方式 B：手动导入（不想用命令行时）**

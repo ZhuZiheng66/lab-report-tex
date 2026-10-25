@@ -21,6 +21,7 @@
 | Codex CLI | `python install.py --target codex` |
 | 豆包工作 | `python install.py --target doubao`，或请用户在「技能 → 上传技能」里选择 `skills/lab-report-tex` 文件夹 |
 | WorkBuddy | `python install.py --target workbuddy` |
+| DeepSeek Harness | `python install.py --target dsh` |
 | 其他 / 不确定 | `python install.py --target agents`；平台只支持上传的，`python install.py --zip` 后让用户上传 `dist/lab-report-tex.zip` |
 
 已经装过同名技能时，`install.py` 会**拒绝覆盖**并说明位置。要升级就**先问用户**，同意后加 `--force`：旧版本会先移到 `~/.lab-report-tex/backups/` 再安装新版，输出里会给出备份路径。
