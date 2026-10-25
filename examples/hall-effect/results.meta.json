@@ -1,0 +1,263 @@
+{
+ "entries": {
+  "fig/b_x.pdf": [
+   {
+    "argv": [
+     "data/fit_x.csv",
+     "--x",
+     "x",
+     "--y",
+     "B",
+     "--mode",
+     "curve",
+     "--xlabel",
+     "$X$/mm",
+     "--ylabel",
+     "$B$/mT",
+     "--out",
+     "fig/b_x.pdf",
+     "--size",
+     "5.6,3.4"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/fit_x.csv",
+      "sha256": "4d07e5dfa795e535c3f5acf90acf3f99b061b8e53885d497c03335da30edbea3"
+     }
+    ],
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:08+08:00"
+   }
+  ],
+  "fig/vh_im.pdf": [
+   {
+    "argv": [
+     "data/fit_im.csv",
+     "--x",
+     "x",
+     "--y",
+     "y",
+     "--xlabel",
+     "$I_m$/A",
+     "--ylabel",
+     "$V_H$/mV",
+     "--out",
+     "fig/vh_im.pdf",
+     "--macros",
+     "results.tex",
+     "--name",
+     "FitIm"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/fit_im.csv",
+      "sha256": "2f91866fb0c875f8cae8ad1eee1b0bc7d5f39751ff143c4e7d71f89377f1bf20"
+     }
+    ],
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:07+08:00"
+   }
+  ],
+  "fig/vh_is.pdf": [
+   {
+    "argv": [
+     "data/fit_is.csv",
+     "--x",
+     "x",
+     "--y",
+     "y",
+     "--xlabel",
+     "$I_s$/mA",
+     "--ylabel",
+     "$V_H$/mV",
+     "--out",
+     "fig/vh_is.pdf",
+     "--macros",
+     "results.tex",
+     "--name",
+     "FitIs"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/fit_is.csv",
+      "sha256": "8300c006fd460e23f81b729d2dd529649fa605d9cf2b693d5fc3af50097c1c89"
+     }
+    ],
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:06+08:00"
+   }
+  ],
+  "results.tex": [
+   {
+    "argv": [
+     "data/fit_is.csv",
+     "--x",
+     "x",
+     "--y",
+     "y",
+     "--xlabel",
+     "$I_s$/mA",
+     "--ylabel",
+     "$V_H$/mV",
+     "--out",
+     "fig/vh_is.pdf",
+     "--macros",
+     "results.tex",
+     "--name",
+     "FitIs"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/fit_is.csv",
+      "sha256": "8300c006fd460e23f81b729d2dd529649fa605d9cf2b693d5fc3af50097c1c89"
+     }
+    ],
+    "note": "fit_plot.py fit_is.csv y~x → FitIsK,FitIsB,FitIsR,FitIsUK,FitIsUB",
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:06+08:00"
+   },
+   {
+    "argv": [
+     "data/fit_im.csv",
+     "--x",
+     "x",
+     "--y",
+     "y",
+     "--xlabel",
+     "$I_m$/A",
+     "--ylabel",
+     "$V_H$/mV",
+     "--out",
+     "fig/vh_im.pdf",
+     "--macros",
+     "results.tex",
+     "--name",
+     "FitIm"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/fit_im.csv",
+      "sha256": "2f91866fb0c875f8cae8ad1eee1b0bc7d5f39751ff143c4e7d71f89377f1bf20"
+     }
+    ],
+    "note": "fit_plot.py fit_im.csv y~x → FitImK,FitImB,FitImR,FitImUK,FitImUB",
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:07+08:00"
+   },
+   {
+    "argv": [],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/raw_is.csv",
+      "sha256": "b27232906991f8f4000cdb0e541c0479828d3798866c5ce0648b9cc260a2c885"
+     },
+     {
+      "path": "data/raw_im.csv",
+      "sha256": "153c5afbc37626e531c45d57823aed04eb282d2cad776111bae0a9b7f3c7a244"
+     },
+     {
+      "path": "data/raw_x.csv",
+      "sha256": "442ff05144eae3ab945bff7bacb32cc1e35f46d4e6c2277468932bf7f8699ff7"
+     }
+    ],
+    "note": "analysis.py → KH,XC,VHC,DV,UVH,RelVH,RelKH,RelIs,RelB,BVal,BU,BLeft,BRight,XLeft,XRight,EndRatio,ExIs,ExVa,ExVb,ExVc,ExVd,ExVH,ExSum",
+    "script": "analysis.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:08+08:00"
+   }
+  ],
+  "tab/t_im.tex": [
+   {
+    "argv": [
+     "data/t_im.csv",
+     "--caption",
+     "$V_H$-$I_m$ 关系测量数据（$I_s=3.00$\\,mA）",
+     "--label",
+     "tab:im",
+     "--out",
+     "tab/t_im.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_im.csv",
+      "sha256": "02ddfe841c34a7a858e52e1fe71e85880ed19a09c59d5b07f6e70e9ec530861c"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:04+08:00"
+   }
+  ],
+  "tab/t_is.tex": [
+   {
+    "argv": [
+     "data/t_is.csv",
+     "--caption",
+     "$V_H$-$I_s$ 关系测量数据（$I_m=0.300$\\,A）",
+     "--label",
+     "tab:is",
+     "--out",
+     "tab/t_is.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_is.csv",
+      "sha256": "4f2854a1c248d86f4233bb6eb3cd530cfe53c030a6904e7342f56fafe0df3c75"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:04+08:00"
+   }
+  ],
+  "tab/t_x.tex": [
+   {
+    "argv": [
+     "data/t_x.csv",
+     "--caption",
+     "螺线管轴向磁场分布（$I_s=3.00$\\,mA，$I_m=0.300$\\,A，$K_H=177$\\,mV/(mA$\\cdot$T)）",
+     "--label",
+     "tab:x",
+     "--out",
+     "tab/t_x.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_x.csv",
+      "sha256": "58caa3565dc3a7090137968741f26df3178225c9e497bc01b12220acfaab3c2d"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:19:04+08:00"
+   }
+  ]
+ },
+ "schema": 1
+}

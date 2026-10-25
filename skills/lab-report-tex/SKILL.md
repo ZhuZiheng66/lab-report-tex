@@ -44,7 +44,7 @@ metadata:
 
 **报告模板用 `python <skill>/scripts/read_template.py 模板.docx` 解析**：它递归读取嵌套表格（学校模板的评分栏几乎都是嵌套在“成绩评定”格子里的表，只遍历顶层表格会漏掉），直接给出封面字段、章节顺序、`\labgrading{…}` 和 `--require "…"`。**评分栏的栏目名和分值逐字照抄，不要自创、不要省略。**
 
-把模板和讲义里的硬性要求抄成工作目录下的 `requirements.md`（章节顺序、评分项、讲义要求的每张图/表/计算、思考题、命名、页序），给用户过目。然后判断实验类型（测定一个量 / 特性曲线 / 分布 / 仪器导出 / 观察定性，可混合），它决定数据处理和结果怎么写——见 [references/report-patterns.md](references/report-patterns.md)。
+把模板和讲义里的硬性要求抄成工作目录下的 `requirements.md`（章节顺序、评分项、讲义要求的每张图/表/计算、思考题、命名、页序），给用户过目。其中三类写成机器可检查的格式，`build.py` 会逐项验收：一行 `--require "实验目的,实验原理,…"`；每张要求的图一行 `- 图：fig/xxx.pdf`；每张要求的表一行 `- 表：tab/xxx.tex`（示例见 `examples/*/requirements.md`）。然后判断实验类型（测定一个量 / 特性曲线 / 分布 / 仪器导出 / 观察定性，可混合），它决定数据处理和结果怎么写——见 [references/report-patterns.md](references/report-patterns.md)。
 
 ## 3. 建工作目录
 
@@ -60,11 +60,22 @@ metadata:
 
 按 [references/data-capture.md](references/data-capture.md)：逐格转写成 CSV（数值按原样字符串，不补零不删零），列出可疑项（负号、跳变、涂改、看不清），用物理趋势交叉检查，**一次性让用户确认**。仪器导出文件原样保留，只读不改。确认前不写进正文。
 
+确认状态用 `data_status.py` 记录在 `data_status.json`，`build.py` 只认这个文件：
+
+```
+python <skill>/scripts/data_status.py add data/raw.csv --source "IMG_2034.jpg 表1"     # → transcribed（等待用户核对）
+python <skill>/scripts/data_status.py review data/raw.csv --confirmed-by "用户：‘第4行是-2.68，其余没问题’"
+python <skill>/scripts/data_status.py freeze data/raw.csv                              # 记录 SHA-256
+```
+
+**只有用户在对话里明确确认后才能 review**，`--confirmed-by` 引用用户原话；没确认就停在 transcribed，绝不伪造。冻结后文件再被改动，`build.py` 会阻断交付。
+
 ## 5. 计算、作图、出表（结果全部写成宏）
 
 - `fit_plot.py`：直线 / 过原点 / 多项式拟合，曲线（排序连线）、回线（按记录顺序连）、散点；分组、对数轴、找峰谷、外延到 0、参考线；读 CSV 或仪器导出的 TXT；输出矢量 PDF；拟合结果 `--macros results.tex --name Fit` 写成 `\FitK \FitB \FitR …`。
 - `uncert.py mean|diff|fmt`：A/B 类合成、逐差法、按规则修约；`--macros results.tex --name X` 写出 `\XVal \XU \XRel`。
-- `csv2tex.py`：CSV → `\labtable` 表格片段，单元格原样输出。
+- `csv2tex.py`：CSV → `\labtable` 表格片段，数值原样输出；表题、表头、数据里的 LaTeX 特殊字符**默认全部转义**。表头需要下标用 `--math-shorthand`（`I_{f}/A`）；表头/表题必须写 LaTeX 时才加 `--raw-latex`，且只用于自己写的可信表头。
+- 以上脚本每次生成都会把输入文件的 SHA-256、脚本版本/git commit、命令参数、时间记进 `results.meta.json`。
 - 实验专用公式写进 `analysis.py`：中间量全打印，计算列全部算出（不留空列），结果用 `texmacros.write_macros` 写宏。
 
 正文写 `$k=\num{\FitK}$`、`$(\XVal\pm\XU)$\,eV`，**不手抄数字**。规则见 [references/data-and-uncertainty.md](references/data-and-uncertainty.md)。
@@ -81,7 +92,7 @@ python <skill>/scripts/build.py report.tex --require "<requirements.md 里的章
        --name "<lab-profile 的命名规则>" --outdir <成品目录> --thumbs preview
 ```
 
-`build.py` 编译后报告：错误、缺字、未定义引用、找不到的文件、超宽行；章节缺失或顺序不对；正文遗留的“……”/TODO/占位符；封面空字段。**退出码非 0 就先修。**然后看 `preview/contact.png` 和逐页 PNG：封面、表格是否被拆页、图是否清晰、公式上下标、照片方向、页序、无空白页。最后对照 [report-patterns.md 的检查表](references/report-patterns.md#5-一份高分报告的检查表) 和 requirements.md 逐项勾。
+`build.py` 先验收、后交付：数据未冻结或被改动、`\input` 的文件不存在、需求清单要求的图/表缺失或没被引用、编译日志有错误/缺字/未定义引用、章节缺失或顺序不对、正文遗留“……”/TODO/占位符、封面空字段、**正文手抄了 results.tex 里已有的结果**——任何一项不通过，正式输出目录里都不会有 PDF，只在 `build/candidate/` 留一份候选稿，退出码 2。（确属有意的字面数字，如测量设定点，在该行末尾写 `% lrt:literal（原因）`。）退出码：0 已交付、1 编译失败、2 验收不通过、3 缺 LaTeX。**不是 0 就先修，不要把候选稿当成果交给用户。**然后看 `preview/contact.png` 和逐页 PNG：封面、表格是否被拆页、图是否清晰、公式上下标、照片方向、页序、无空白页。最后对照 [report-patterns.md 的检查表](references/report-patterns.md#5-一份高分报告的检查表) 和 requirements.md 逐项勾。
 
 ## 8. 交付
 

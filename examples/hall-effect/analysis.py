@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SK = os.path.join(HERE, '..', '..', 'skills', 'lab-report-tex', 'scripts')
+SK = os.path.join(os.environ.get('LAB_SKILL_DIR') or os.path.join(HERE, '..', '..', 'skills', 'lab-report-tex'), 'scripts')
 sys.path.insert(0, SK)
 from texmacros import num, write_macros  # noqa: E402
 from uncert import rounded  # noqa: E402
@@ -31,10 +31,12 @@ def read(path):
 
 def write(path, rows):
     with io.open(path, 'w', encoding='utf-8', newline='') as f:
-        csv.writer(f).writerows(rows)
+        csv.writer(f, lineterminator='\n').writerows(rows)
 
 
 def tool(script, *args):
+    if script == 'csv2tex.py':          # 示例表头/表题是自己写的 LaTeX（可信），显式放行
+        args = args + ('--raw-latex',)
     out = subprocess.run([sys.executable, os.path.join(SK, script)] + list(args),
                          stdout=subprocess.PIPE, check=True).stdout.decode('utf-8')
     print(out.rstrip())
@@ -94,7 +96,7 @@ print('中心 X=%s mm：VH=%.3f mV，u(VH)=%.4f mV；u(B)/B=√(%.4f²+%.4f²+%.
       % (c[0], V, u_vh, rel_vh, rel_kh, rel_is, rel_b, Bs, uBs))
 
 ends = (float(xrows[0][6]), float(xrows[-1][6]))
-write_macros(MAC, [
+write_macros(MAC, inputs=['data/raw_is.csv', 'data/raw_im.csv', 'data/raw_x.csv'], macros=[
     ('KH', '%g' % KH), ('XC', c[0]), ('VHC', c[5]), ('DV', '%.3f' % d_v), ('UVH', '%.3f' % u_vh),
     ('RelVH', '%.1f' % (rel_vh * 100)), ('RelKH', '%.1f' % (rel_kh * 100)), ('RelIs', '%.1f' % (rel_is * 100)),
     ('RelB', '%.1f' % (rel_b * 100)), ('BVal', str(Bs)), ('BU', str(uBs)),
@@ -104,15 +106,6 @@ write_macros(MAC, [
     ('ExIs', tables['is'][-1][0]), ('ExVa', tables['is'][-1][1]), ('ExVb', tables['is'][-1][2]),
     ('ExVc', tables['is'][-1][3]), ('ExVd', tables['is'][-1][4]), ('ExVH', tables['is'][-1][5]),
     ('ExSum', '%.2f' % (4 * float(tables['is'][-1][5]))),
-], 'analysis.py')
+], source='analysis.py')
 
-os.makedirs('raw', exist_ok=True)
-if not os.path.exists('raw/raw1.jpg'):
-    from PIL import Image, ImageDraw
-    im = Image.new('RGB', (1654, 2339), (245, 245, 245))
-    d = ImageDraw.Draw(im)
-    d.rectangle([60, 60, 1594, 2279], outline=(160, 160, 160), width=6)
-    d.line([60, 60, 1594, 2279], fill=(200, 200, 200), width=4)
-    d.line([1594, 60, 60, 2279], fill=(200, 200, 200), width=4)
-    im.save('raw/raw1.jpg', quality=85)
 print('完成')

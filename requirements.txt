@@ -1,0 +1,14 @@
+# lab-report-tex 的 Python 依赖。安装：python -m pip install -r requirements.txt
+# 需要 Python >= 3.7。另需 XeLaTeX（MiKTeX / TeX Live）或 Tectonic，见 skills/lab-report-tex/scripts/check_env.py
+# 实际测试过的版本：Python 3.7.8、numpy 1.21.6、matplotlib 3.5.3、Pillow 9.5.0、PyMuPDF 1.22.5、python-docx 0.8.11
+# 下限是脚本用到的 API 所需的最低版本（未逐个版本实测）。
+
+# 必需
+numpy>=1.16
+matplotlib>=3.1
+Pillow>=6.0          # ImageOps.exif_transpose 从 6.0 开始提供
+
+# 可选（缺了对应功能不可用，其余照常）
+PyMuPDF>=1.19        # 缩略图、PDF 转图、读 PDF 文字
+python-docx>=0.8.10  # read_template.py 解析 Word 模板
+pywin32>=227; sys_platform == "win32"   # convert_legacy.py 调用 Office 转换 .doc/.ppt

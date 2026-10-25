@@ -26,6 +26,18 @@
 
 ## 冻结
 
+状态记在 `data_status.json`（用 `scripts/data_status.py` 操作，不要手改）：
+
+| 状态 | 什么时候 | 命令 |
+|---|---|---|
+| pending | 还没处理 / 不确定 | （默认） |
+| transcribed | AI 已转写成 CSV，等用户核对 | `data_status.py add data/raw.csv --source "IMG_2034.jpg"` |
+| reviewed | **用户明确确认后**；`--confirmed-by` 引用用户原话 | `data_status.py review data/raw.csv --confirmed-by "用户：…"` |
+| frozen | 确认后冻结，记录 SHA-256 | `data_status.py freeze data/raw.csv` |
+| used_in_report | build.py 验收通过后自动标记 | — |
+
+没有用户确认，就不能 review——宁可停在 transcribed 让 build.py 阻断，也不要伪造确认。
+
 用户确认后，`data/raw.csv` 视为只读。之后的换算都写进派生 CSV（`data/derived*.csv`）或 `analysis.py`，原始文件不再手改。若用户后来更正某个值，改 `raw.csv` 后**整条流水线重跑**（analysis.py → build.py），不要只改正文。
 
 ## 仪器导出数据、截图

@@ -15,7 +15,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SK = os.path.join(HERE, '..', '..', 'skills', 'lab-report-tex', 'scripts')
+SK = os.path.join(os.environ.get('LAB_SKILL_DIR') or os.path.join(HERE, '..', '..', 'skills', 'lab-report-tex'), 'scripts')
 sys.path.insert(0, SK)
 from texmacros import num, write_macros  # noqa: E402
 from uncert import rounded  # noqa: E402
@@ -32,12 +32,14 @@ def read(path):
 
 def write(path, header, rows):
     with io.open(path, 'w', encoding='utf-8', newline='') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')
         w.writerow(header)
         w.writerows(rows)
 
 
 def tool(script, *args):
+    if script == 'csv2tex.py':          # 示例表头/表题是自己写的 LaTeX（可信），显式放行
+        args = args + ('--raw-latex',)
     out = subprocess.run([sys.executable, os.path.join(SK, script)] + list(args),
                          stdout=subprocess.PIPE, check=True).stdout.decode('utf-8')
     print(out.rstrip())
@@ -100,22 +102,12 @@ W0 = 4.54
 Ws, uWs, rel = rounded(V, uV)
 err = abs(float(Ws) - W0) / W0 * 100
 print('k = %.4g K, u(k) = %.3g K → V = %.4f V, u(V) = %.4f V；W = (%s ± %s) eV，E = %.1f%%' % (k, uk, V, uV, Ws, uWs, err))
-write_macros(MAC, [
+write_macros(MAC, inputs=['data/raw.csv', 'data/t1_ift.csv'], macros=[
     ('RichKK', num(k, 4)), ('RichUKK', num(uk, 2)), ('KbLnE', num(KB_LN10_E, 4)),
     ('Vraw', '%.3f' % V), ('uVraw', '%.3f' % uV),
     ('WVal', str(Ws)), ('WU', str(uWs)), ('WRel', '%.1f' % rel), ('WZero', '%.2f' % W0), ('WErr', '%.1f' % err),
     ('IzeroMin', rich[0]['I0']), ('IzeroMax', rich[-1]['I0']),
     ('ExtRmin', '%.4f' % ext[0]['r']), ('ExtRmax', '%.4f' % ext[-1]['r']),
-], 'analysis.py')
+], source='analysis.py')
 
-# 原始数据照片页：仓库里不放真实手写照片，这里生成一张占位图演示排版
-os.makedirs('raw', exist_ok=True)
-if not os.path.exists('raw/raw1.jpg'):
-    from PIL import Image, ImageDraw
-    im = Image.new('RGB', (1654, 2339), (245, 245, 245))
-    d = ImageDraw.Draw(im)
-    d.rectangle([60, 60, 1594, 2279], outline=(160, 160, 160), width=6)
-    d.line([60, 60, 1594, 2279], fill=(200, 200, 200), width=4)
-    d.line([1594, 60, 60, 2279], fill=(200, 200, 200), width=4)
-    im.save('raw/raw1.jpg', quality=85)
 print('完成：results.tex、tab/*.tex、fig/*.pdf')

@@ -23,6 +23,8 @@
 | WorkBuddy | `python install.py --target workbuddy` |
 | 其他 / 不确定 | `python install.py --target agents`；平台只支持上传的，`python install.py --zip` 后让用户上传 `dist/lab-report-tex.zip` |
 
+已经装过同名技能时，`install.py` 会**拒绝覆盖**并说明位置。要升级就**先问用户**，同意后加 `--force`：旧版本会先移到 `~/.lab-report-tex/backups/` 再安装新版，输出里会给出备份路径。
+
 装不进去也没关系：**直接读 `skills/lab-report-tex/SKILL.md` 并照做**，效果一样。下文 `<skill>` 指 `skills/lab-report-tex` 目录。
 
 Windows 上命令是 `python`，macOS/Linux 上通常是 `python3`。
@@ -43,7 +45,9 @@ python <skill>/scripts/check_env.py
 
 需要把 .doc/.ppt 转成新格式时用 `python <skill>/scripts/convert_legacy.py 文件`，不要自己写 PowerShell COM（常被沙箱拦截，且对路径格式和中文文件名很挑剔）。需要 `pip install pywin32 python-docx`。
 
-可选的冒烟测试（1~2 分钟，确认能编译出 PDF）：`python tests/run_examples.py`，看到“全部通过”即可。
+Python 依赖也可以一次装好：`python -m pip install -r requirements.txt`（在仓库根目录）。
+
+可选的冒烟测试（1~2 分钟，确认能编译出 PDF）：`python tests/run_examples.py`，看到“全部通过”即可；它在临时目录里运行，不会改动仓库文件。退出码 3 表示环境依赖缺失，按提示安装即可，不是代码问题。
 
 ## 4. 告诉用户准备什么
 

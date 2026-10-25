@@ -1,0 +1,26 @@
+[project]
+name = "lab-report-tex"
+version = "1.1.0"
+description = "AI Agent Skill：按老师要求，用 LaTeX 把实验讲义和手写原始数据做成排版规范、数字可追溯的中文实验报告 PDF"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "ZhuZiheng" }]
+requires-python = ">=3.7"
+dependencies = [
+  "numpy>=1.16",
+  "matplotlib>=3.1",
+  "Pillow>=6.0",
+]
+
+[project.optional-dependencies]
+full = [
+  "PyMuPDF>=1.19",
+  "python-docx>=0.8.10",
+  "pywin32>=227; sys_platform == 'win32'",
+]
+
+[project.urls]
+Homepage = "https://github.com/ZhuZiheng66/lab-report-tex"
+
+# 说明：这是一个 Agent Skill，脚本直接以 python skills/lab-report-tex/scripts/xxx.py 运行，
+# 不需要 pip install 本项目；这里只是写清依赖和版本。

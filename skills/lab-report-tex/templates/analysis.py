@@ -29,7 +29,7 @@ def read(path):
 
 def write(path, header, rows):
     with io.open(path, 'w', encoding='utf-8', newline='') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')    # 固定 LF，重跑结果才逐字节一致
         w.writerow(header)
         w.writerows(rows)
 
@@ -58,4 +58,6 @@ def tool(script, *args):
 # TODO 4：由拟合结果算最终量和不确定度，修约后写宏
 # val, u = ..., ...
 # v, uu, rel = rounded(val, u)
-# write_macros(MAC, [('XVal', str(v)), ('XU', str(uu)), ('XRel', '%.2g' % rel)], 'analysis.py')
+# write_macros(MAC, [('XVal', str(v)), ('XU', str(uu)), ('XRel', '%.2g' % rel)], source='analysis.py',
+#              inputs=['data/raw.csv'])     # inputs 会以 SHA-256 记进 results.meta.json
+# 表头/表题写了 LaTeX（$I_\mathrm{f}$/A）时，csv2tex 要显式加 '--raw-latex'（只用于自己写的可信表头）

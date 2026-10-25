@@ -8,10 +8,18 @@
   python install.py --target workbuddy # WorkBuddy（~/.workbuddy/skills）
   python install.py --dest D:/my/skills   # 装到任意目录
   python install.py --zip              # 生成 dist/lab-report-tex.zip（WorkBuddy、豆包等平台上传用）
-  python install.py --uninstall        # 从上述目录删除
+
+安全规则（不会静默删除你的东西）：
+  · 目标位置已经有 lab-report-tex 时，默认**拒绝安装**并说明原因；加 --force 才覆盖。
+  · 覆盖或卸载前，旧目录会先完整移动到备份目录：~/.lab-report-tex/backups/<时间戳>-<位置>/
+    （可用环境变量 LAB_REPORT_TEX_BACKUP_DIR 改位置；备份不放在 skills 目录里，免得被 Agent 当成第二个技能加载）
+  · --uninstall 需要再加 --yes 才会执行，同样先备份。
+退出码：0 成功；1 有目标被拒绝或失败；2 参数错误。
 """
 import argparse
+import datetime
 import os
+import re
 import shutil
 import sys
 import zipfile
@@ -33,20 +41,46 @@ TARGETS = {
 IGNORE = shutil.ignore_patterns('__pycache__', '*.pyc', 'build', 'preview')
 
 
-def install(dest_root):
-    dst = os.path.join(dest_root, NAME)
+def backup_root():
+    return os.environ.get('LAB_REPORT_TEX_BACKUP_DIR') or os.path.join(HOME, '.lab-report-tex', 'backups')
+
+
+def backup(dst):
+    """把已有目录整个移到带时间戳的备份目录，返回备份路径。"""
+    stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
+    where = re.sub(r'[^A-Za-z0-9._-]+', '_', os.path.dirname(os.path.abspath(dst)))[-60:]
+    bdir = os.path.join(backup_root(), '%s-%s' % (stamp, where))
+    os.makedirs(bdir, exist_ok=True)
+    target = os.path.join(bdir, os.path.basename(dst))
+    shutil.move(dst, target)
+    return target
+
+
+def install(dest_root, force=False):
+    dst = os.path.abspath(os.path.join(dest_root, NAME))
     if os.path.exists(dst):
-        shutil.rmtree(dst)
+        if not force:
+            print('✘ 已存在，未改动：%s\n  如果确定要用新版本覆盖，加 --force（旧目录会先备份）' % dst)
+            return False
+        b = backup(dst)
+        print('  旧版本已备份到：%s' % b)
     os.makedirs(dest_root, exist_ok=True)
     shutil.copytree(SRC, dst, ignore=IGNORE)
-    print('✔ 已安装：', dst)
+    print('✔ 已安装：%s' % dst)
+    return True
 
 
-def uninstall(dest_root):
-    dst = os.path.join(dest_root, NAME)
-    if os.path.exists(dst):
-        shutil.rmtree(dst)
-        print('✔ 已删除：', dst)
+def uninstall(dest_root, yes=False):
+    dst = os.path.abspath(os.path.join(dest_root, NAME))
+    if not os.path.exists(dst):
+        print('- 没有安装：%s' % dst)
+        return True
+    if not yes:
+        print('✘ 将要删除 %s\n  确认的话加 --yes 再运行（会先备份）' % dst)
+        return False
+    b = backup(dst)
+    print('✔ 已卸载：%s\n  原目录已移到：%s' % (dst, b))
+    return True
 
 
 def make_zip():
@@ -74,7 +108,9 @@ def main():
     ap.add_argument('--target', choices=list(TARGETS) + ['all'])
     ap.add_argument('--dest')
     ap.add_argument('--zip', action='store_true')
+    ap.add_argument('--force', action='store_true', help='目标已存在时覆盖（先备份）')
     ap.add_argument('--uninstall', action='store_true')
+    ap.add_argument('--yes', action='store_true', help='确认卸载')
     a = ap.parse_args()
 
     if a.zip:
@@ -89,12 +125,14 @@ def main():
     else:
         roots = [p for p in TARGETS.values() if os.path.isdir(os.path.dirname(p))]
         if not roots:
-            print('没找到 ~/.claude、~/.codex、~/.agents，请用 --target 或 --dest 指定。')
-            sys.exit(1)
+            print('没找到 ~/.claude、~/.codex、~/.agents 等目录，请用 --target 或 --dest 指定。')
+            sys.exit(2)
+    ok = True
     for r in roots:
-        (uninstall if a.uninstall else install)(r)
-    if not a.uninstall:
+        ok &= uninstall(r, a.yes) if a.uninstall else install(r, a.force)
+    if not a.uninstall and ok:
         print('\n下一步：python "%s" 检查 LaTeX 与 Python 环境' % os.path.join(SRC, 'scripts', 'check_env.py'))
+    sys.exit(0 if ok else 1)
 
 
 if __name__ == '__main__':

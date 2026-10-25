@@ -1,0 +1,57 @@
+{
+ "files": {
+  "data/raw.csv": {
+   "confirmed_by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+   "history": [
+    {
+     "status": "transcribed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+     "status": "reviewed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "frozen",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "used_in_report",
+     "time": "2026-10-25T12:17:11+08:00"
+    }
+   ],
+   "reviewed_sha256": "dc3b26c33b204572b9e6ba2dc11b8c5cefe2c4c026fae1b69f3240db82db0427",
+   "sha256": "dc3b26c33b204572b9e6ba2dc11b8c5cefe2c4c026fae1b69f3240db82db0427",
+   "source": "作者已提交报告中的数据表",
+   "status": "used_in_report"
+  },
+  "data/t1_ift.csv": {
+   "confirmed_by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+   "history": [
+    {
+     "status": "transcribed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+     "status": "reviewed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "frozen",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "used_in_report",
+     "time": "2026-10-25T12:17:11+08:00"
+    }
+   ],
+   "reviewed_sha256": "e1d1e9ac0b0477e12c6dcfe2914af85a48d9f51854ab0117a8f681ec8edfc05f",
+   "sha256": "e1d1e9ac0b0477e12c6dcfe2914af85a48d9f51854ab0117a8f681ec8edfc05f",
+   "source": "作者已提交报告中的数据表",
+   "status": "used_in_report"
+  }
+ },
+ "schema": 1
+}

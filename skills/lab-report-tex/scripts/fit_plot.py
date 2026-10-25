@@ -46,6 +46,7 @@ from matplotlib import font_manager  # noqa: E402
 from matplotlib.font_manager import FontProperties  # noqa: E402
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from provenance import record  # noqa: E402
 from texmacros import num, write_macros  # noqa: E402
 
 if hasattr(sys.stdout, 'reconfigure'):
@@ -263,6 +264,7 @@ def main():
     fig.tight_layout()
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     fig.savefig(a.out, facecolor='white', dpi=300)
+    record(a.out, [a.csv], script='fit_plot.py')
     print('SAVED', a.out)
 
     if a.macros and a.mode in ('fit', 'origin'):
@@ -277,7 +279,7 @@ def main():
                     continue
                 d = 2 if key.startswith('u_') else a.digits
                 ms.append((a.name + mac + suf, num(r[key], d)))
-        write_macros(a.macros, ms, 'fit_plot.py %s %s~%s' % (os.path.basename(a.csv), a.y, a.x))
+        write_macros(a.macros, ms, 'fit_plot.py %s %s~%s' % (os.path.basename(a.csv), a.y, a.x), inputs=[a.csv])
         print('已写入 %d 个宏 → %s（%s）' % (len(ms), a.macros, '，'.join(m for m, _ in ms[:5]) + ' …'))
     elif a.macros:
         print('（%s 模式不写宏；需要的数值请从下面 JSON 取，在 analysis.py 里修约后写宏）' % a.mode)

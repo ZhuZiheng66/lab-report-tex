@@ -1,0 +1,83 @@
+{
+ "files": {
+  "data/raw_im.csv": {
+   "confirmed_by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+   "history": [
+    {
+     "status": "transcribed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+     "status": "reviewed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "frozen",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "used_in_report",
+     "time": "2026-10-25T12:17:21+08:00"
+    }
+   ],
+   "reviewed_sha256": "153c5afbc37626e531c45d57823aed04eb282d2cad776111bae0a9b7f3c7a244",
+   "sha256": "153c5afbc37626e531c45d57823aed04eb282d2cad776111bae0a9b7f3c7a244",
+   "source": "作者已提交报告中的数据表",
+   "status": "used_in_report"
+  },
+  "data/raw_is.csv": {
+   "confirmed_by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+   "history": [
+    {
+     "status": "transcribed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+     "status": "reviewed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "frozen",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "used_in_report",
+     "time": "2026-10-25T12:17:21+08:00"
+    }
+   ],
+   "reviewed_sha256": "b27232906991f8f4000cdb0e541c0479828d3798866c5ce0648b9cc260a2c885",
+   "sha256": "b27232906991f8f4000cdb0e541c0479828d3798866c5ce0648b9cc260a2c885",
+   "source": "作者已提交报告中的数据表",
+   "status": "used_in_report"
+  },
+  "data/raw_x.csv": {
+   "confirmed_by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+   "history": [
+    {
+     "status": "transcribed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "by": "仓库作者（示例数据取自作者本人已提交的实验报告，由作者提供并核对；非本工具从照片转写）",
+     "status": "reviewed",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "frozen",
+     "time": "2026-10-25T12:10:36+08:00"
+    },
+    {
+     "status": "used_in_report",
+     "time": "2026-10-25T12:17:21+08:00"
+    }
+   ],
+   "reviewed_sha256": "442ff05144eae3ab945bff7bacb32cc1e35f46d4e6c2277468932bf7f8699ff7",
+   "sha256": "442ff05144eae3ab945bff7bacb32cc1e35f46d4e6c2277468932bf7f8699ff7",
+   "source": "作者已提交报告中的数据表",
+   "status": "used_in_report"
+  }
+ },
+ "schema": 1
+}

@@ -1,0 +1,289 @@
+{
+ "entries": {
+  "fig/lgia.pdf": [
+   {
+    "argv": [
+     "data/lgia_long.csv",
+     "--x",
+     "sqrtUa",
+     "--y",
+     "lgIa",
+     "--group",
+     "If",
+     "--group-label",
+     "$I_f$={}A",
+     "--xlabel",
+     "$\\sqrt{U_a/\\mathrm{V}}$",
+     "--ylabel",
+     "$\\lg(I_a/\\mu\\mathrm{A})$",
+     "--out",
+     "fig/lgia.pdf",
+     "--size",
+     "5.6,3.8",
+     "--macros",
+     "results.tex",
+     "--name",
+     "Ext"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/lgia_long.csv",
+      "sha256": "17325cec978b6a05d3e7f4d55a4b2642ee244f1ffeb6992f3fce85e19b00f632"
+     }
+    ],
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:57+08:00"
+   }
+  ],
+  "fig/rich.pdf": [
+   {
+    "argv": [
+     "data/rich_fit.csv",
+     "--x",
+     "x",
+     "--y",
+     "y",
+     "--xlabel",
+     "$(1/T)/10^{-4}\\mathrm{K}^{-1}$",
+     "--ylabel",
+     "$\\lg(I_0/T^2)$",
+     "--out",
+     "fig/rich.pdf",
+     "--macros",
+     "results.tex",
+     "--name",
+     "Rich"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/rich_fit.csv",
+      "sha256": "296ff5c4eb9d1cda51b31963e605099d68ade0725066251ac716f21222d27c52"
+     }
+    ],
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:58+08:00"
+   }
+  ],
+  "results.tex": [
+   {
+    "argv": [
+     "data/lgia_long.csv",
+     "--x",
+     "sqrtUa",
+     "--y",
+     "lgIa",
+     "--group",
+     "If",
+     "--group-label",
+     "$I_f$={}A",
+     "--xlabel",
+     "$\\sqrt{U_a/\\mathrm{V}}$",
+     "--ylabel",
+     "$\\lg(I_a/\\mu\\mathrm{A})$",
+     "--out",
+     "fig/lgia.pdf",
+     "--size",
+     "5.6,3.8",
+     "--macros",
+     "results.tex",
+     "--name",
+     "Ext"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/lgia_long.csv",
+      "sha256": "17325cec978b6a05d3e7f4d55a4b2642ee244f1ffeb6992f3fce85e19b00f632"
+     }
+    ],
+    "note": "fit_plot.py lgia_long.csv lgIa~sqrtUa → ExtKa,ExtBa,ExtRa,ExtUKa,ExtUBa,ExtKb,ExtBb,ExtRb,ExtUKb,ExtUBb,ExtKc,ExtBc,ExtRc,ExtUKc,ExtUBc,ExtKd,ExtBd,ExtRd,ExtUKd,ExtUBd,ExtKe,ExtBe,ExtRe,ExtUKe,ExtUBe",
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:57+08:00"
+   },
+   {
+    "argv": [
+     "data/rich_fit.csv",
+     "--x",
+     "x",
+     "--y",
+     "y",
+     "--xlabel",
+     "$(1/T)/10^{-4}\\mathrm{K}^{-1}$",
+     "--ylabel",
+     "$\\lg(I_0/T^2)$",
+     "--out",
+     "fig/rich.pdf",
+     "--macros",
+     "results.tex",
+     "--name",
+     "Rich"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/rich_fit.csv",
+      "sha256": "296ff5c4eb9d1cda51b31963e605099d68ade0725066251ac716f21222d27c52"
+     }
+    ],
+    "note": "fit_plot.py rich_fit.csv y~x → RichK,RichB,RichR,RichUK,RichUB",
+    "script": "fit_plot.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:58+08:00"
+   },
+   {
+    "argv": [],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/raw.csv",
+      "sha256": "dc3b26c33b204572b9e6ba2dc11b8c5cefe2c4c026fae1b69f3240db82db0427"
+     },
+     {
+      "path": "data/t1_ift.csv",
+      "sha256": "e1d1e9ac0b0477e12c6dcfe2914af85a48d9f51854ab0117a8f681ec8edfc05f"
+     }
+    ],
+    "note": "analysis.py → RichKK,RichUKK,KbLnE,Vraw,uVraw,WVal,WU,WRel,WZero,WErr,IzeroMin,IzeroMax,ExtRmin,ExtRmax",
+    "script": "analysis.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:59+08:00"
+   }
+  ],
+  "tab/t_ext.tex": [
+   {
+    "argv": [
+     "data/t_ext.csv",
+     "--caption",
+     "外延法拟合结果（$\\lg I_a=k\\sqrt{U_a}+\\lg I_0$）",
+     "--label",
+     "tab:ext",
+     "--out",
+     "tab/t_ext.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_ext.csv",
+      "sha256": "ef73e81f53e0ad9b1eb784c9b63179a324318e171fe82b9f25cdb4c0e65bbea7"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:57+08:00"
+   }
+  ],
+  "tab/t_ia.tex": [
+   {
+    "argv": [
+     "data/t_ia.csv",
+     "--caption",
+     "不同灯丝电流和阳极电压$U_a$/V下的阳极电流$I_a$/μA",
+     "--label",
+     "tab:ia",
+     "--out",
+     "tab/t_ia.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_ia.csv",
+      "sha256": "b480a37446e62889ffa526aa86f9612e43dc4747ea4dde1f2f21c0d9328e707d"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:55+08:00"
+   }
+  ],
+  "tab/t_ift.tex": [
+   {
+    "argv": [
+     "data/t_ift.csv",
+     "--caption",
+     "灯丝电流与灯丝温度的对应关系",
+     "--label",
+     "tab:ift",
+     "--out",
+     "tab/t_ift.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_ift.csv",
+      "sha256": "cf9dbf2967add61974ec539c41235415cc1895884d49910179544c6f606a2c2d"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:55+08:00"
+   }
+  ],
+  "tab/t_lgia.tex": [
+   {
+    "argv": [
+     "data/t_lgia.csv",
+     "--caption",
+     "$\\lg(I_a/\\mu\\mathrm{A})$ 与 $\\sqrt{U_a/\\mathrm{V}}$（首行）",
+     "--label",
+     "tab:lgia",
+     "--out",
+     "tab/t_lgia.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/t_lgia.csv",
+      "sha256": "e8527905194a776eaff9ddd457f370baecc1e5459f576e67209a81a72ef9c097"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:55+08:00"
+   }
+  ],
+  "tab/t_rich.tex": [
+   {
+    "argv": [
+     "data/rich.csv",
+     "--caption",
+     "不同灯丝温度下的 $\\lg(I_0/T^2)$ 与 $1/T$",
+     "--label",
+     "tab:rich",
+     "--out",
+     "tab/t_rich.tex",
+     "--raw-latex"
+    ],
+    "git_commit": "a499627f2c7baebc39be334ec23cd279699a6ac3",
+    "git_dirty": true,
+    "inputs": [
+     {
+      "path": "data/rich.csv",
+      "sha256": "914b9979fe692743177920df20625a646bd14b987d8ac354b57ea6f994214ecf"
+     }
+    ],
+    "script": "csv2tex.py",
+    "skill_version": "1.1.0",
+    "time": "2026-10-25T12:18:57+08:00"
+   }
+  ]
+ },
+ "schema": 1
+}
