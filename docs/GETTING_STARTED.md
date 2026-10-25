@@ -5,7 +5,7 @@
 > 把下面这句话复制给你的 AI（豆包工作、Claude Code、Codex、WorkBuddy 等），它会自己完成下面所有步骤，需要装大软件时会先问你：
 >
 > ```
-> 请阅读 https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex 里的 docs/AI_SETUP.md，帮我把这个实验报告技能装好；装好后我把实验材料都发给你，你先识别每个文件是什么，再帮我做实验报告。
+> 请阅读 https://github.com/ZhuZiheng66/lab-report-tex 里的 docs/AI_SETUP.md，帮我把这个实验报告技能装好；装好后我把实验材料都发给你，你先识别每个文件是什么，再帮我做实验报告。
 > ```
 >
 > **只有 AI 实在装不上时**，才需要往下看。
@@ -85,7 +85,7 @@ brew install --cask mactex-no-gui
 **方式 A：git clone + 一键安装（推荐）**
 
 ```bash
-git clone https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex.git
+git clone https://github.com/ZhuZiheng66/lab-report-tex.git
 cd lab-report-tex
 python install.py --target <你的客户端>
 ```

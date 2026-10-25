@@ -7,4 +7,4 @@
 - 安装与开工步骤：docs/AI_SETUP.md
 - 技能本体（流程与原则）：skills/lab-report-tex/SKILL.md
 - 第一步必须识别用户给的材料：skills/lab-report-tex/references/intake.md
-- 原始地址：https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex
+- 原始地址：https://github.com/ZhuZiheng66/lab-report-tex

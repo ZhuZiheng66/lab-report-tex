@@ -4,7 +4,7 @@ description: 按老师的模板和要求，用 LaTeX（XeLaTeX + ctex）把理�
 license: MIT
 metadata:
   author: ZhuZiheng
-  homepage: https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex
+  homepage: https://github.com/ZhuZiheng66/lab-report-tex
 ---
 
 # 实验报告（LaTeX）

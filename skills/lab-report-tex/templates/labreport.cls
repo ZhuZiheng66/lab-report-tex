@@ -1,5 +1,5 @@
 % labreport.cls —— 中文理工科实验报告文档类（XeLaTeX + ctex）
-% 项目主页：https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex   许可：MIT
+% 项目主页：https://github.com/ZhuZiheng66/lab-report-tex   许可：MIT
 %
 % 用法概览（完整示例见 templates/report.tex）：
 %   \documentclass{labreport}            % 默认：带框章节（像学校 Word 模板的大表格）

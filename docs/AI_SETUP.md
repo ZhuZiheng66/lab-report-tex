@@ -1,14 +1,14 @@
 # 给 AI 的安装与开工说明
 
 > 这份文档写给 **AI Agent** 看。用户把本仓库的链接发给你、让你“装好它然后帮我做实验报告”时，按下面的步骤做。
-> 仓库：<https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex>（作者 ZhuZiheng，MIT 许可）
+> 仓库：<https://github.com/ZhuZiheng66/lab-report-tex>（作者 ZhuZiheng，MIT 许可）
 
 每一步做完用一两句话告诉用户进度。需要用户动手或拍板的地方（安装大软件、登录账号、确认材料和数据）停下来问，其余的自己完成。
 
 ## 1. 取得代码
 
-- 有 git：`git clone https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex.git`
-- 没有 git：下载 <https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex/archive/refs/heads/main.zip>，解压到一个**新的空文件夹**。
+- 有 git：`git clone https://github.com/ZhuZiheng66/lab-report-tex.git`
+- 没有 git：下载 <https://github.com/ZhuZiheng66/lab-report-tex/archive/refs/heads/main.zip>，解压到一个**新的空文件夹**。
 - 只能浏览网页、不能下载文件：直接读 [skills/lab-report-tex/SKILL.md](../skills/lab-report-tex/SKILL.md) 和同目录 `references/`，按其中的规则工作，跳到第 5 步；编译部分让用户用 Overleaf。
 
 ## 2. 把技能装进你自己

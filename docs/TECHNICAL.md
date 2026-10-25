@@ -39,7 +39,7 @@ flowchart LR
 ## 快速开始
 
 ```bash
-git clone https://github.com/tyleradamsr5n9g9c-ctrl/lab-report-tex.git
+git clone https://github.com/ZhuZiheng66/lab-report-tex.git
 cd lab-report-tex
 python install.py                                   # 装到本机已有的 ~/.claude、~/.codex、~/.agents
 python skills/lab-report-tex/scripts/check_env.py   # 检查 XeLaTeX、Python 依赖、中文字体
