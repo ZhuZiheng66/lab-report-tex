@@ -36,14 +36,21 @@ def main():
     print('  安装（用运行本脚本的同一个解释器）：%s -m pip install numpy matplotlib pillow pymupdf python-docx%s'
           % (sys.executable, ' pywin32' if os.name == 'nt' else ''))
 
-    print('\n[LaTeX 编译器]')
+    print('\n[LaTeX 编译器]（可选：PDF 版排版最好；没有也能用 Word 版）')
     engines = {e: shutil.which(e) for e in ('xelatex', 'latexmk', 'perl', 'tectonic', 'kpsewhich')}
     for e, p in engines.items():
         print(' ', OK if p else '-', e, p or '')
-    if not (engines['xelatex'] or engines['tectonic']):
+    has_latex = bool(engines['xelatex'] or engines['tectonic'])
+    try:
+        importlib.import_module('docx')
+        has_word = True
+    except ImportError:
+        has_word = False
+    if not has_latex and not has_word:
         bad += 1
+    if not has_latex:
         sysname = platform.system()
-        print('  ✘ 没有 XeLaTeX。安装建议：')
+        print('  ! 没有 XeLaTeX：可以先用 Word 版（build_docx.py）。想要排版更好的 PDF，再装 LaTeX：')
         if sysname == 'Windows':
             print('    · MiKTeX（小，缺宏包时自动下载）：winget install MiKTeX.MiKTeX')
             print('    · 或 TeX Live（完整，约 8GB）：https://tug.org/texlive/')
@@ -87,7 +94,12 @@ def main():
     except ImportError:
         print('  （需要 matplotlib 才能检查字体）')
 
-    print('\n结论：%s' % ('可以开始 ✔' if not bad else '还缺 %d 项必需环境，见上方 ✘' % bad))
+    modes = (['PDF 版（LaTeX，推荐）'] if has_latex else []) + (['Word 版'] if has_word else [])
+    if not bad:
+        print('\n结论：可以开始 ✔  可用：%s' % ' + '.join(modes))
+    else:
+        print('\n结论：还缺 %d 项必需环境，见上方 ✘%s' % (
+            bad, '' if modes else '（LaTeX 和 python-docx 至少装一个：pip install python-docx 最快）'))
     sys.exit(1 if bad else 0)
 
 

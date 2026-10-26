@@ -39,7 +39,7 @@ python <skill>/scripts/check_env.py
 | 缺什么 | 怎么办 |
 |---|---|
 | Python 包 | 直接 `python -m pip install numpy matplotlib pillow pymupdf python-docx`（Windows 再加 `pywin32`，用于转换 .doc/.ppt） |
-| XeLaTeX | **先问用户**（要下载几百 MB 到几 GB）。同意后：Windows `winget install MiKTeX.MiKTeX`；macOS `brew install --cask mactex-no-gui`；Linux `sudo apt install texlive-xetex texlive-lang-chinese texlive-latex-extra latexmk`。不想装就用 Overleaf（见 [platforms.md](../skills/lab-report-tex/references/platforms.md)） |
+| XeLaTeX（**可选**） | 没有也能用：直接出 Word 版（`build_docx.py`）。想要排版最好的 PDF 才装——**先问用户**（要下载几百 MB 到几 GB）。同意后：Windows `winget install MiKTeX.MiKTeX`；macOS `brew install --cask mactex-no-gui`；Linux `sudo apt install texlive-xetex texlive-lang-chinese texlive-latex-extra latexmk`。不想装就用 Overleaf（见 [platforms.md](../skills/lab-report-tex/references/platforms.md)） |
 | 中文字体 | Windows/macOS 一般自带；Linux 装 `fonts-noto-cjk` |
 
 **用同一个 Python 解释器**跑 `check_env.py`、`pip install` 和后面所有脚本（Windows 上常有好几个 Python，装到 A、用 B 跑就会误报缺包）。不确定时用 `python -m pip install …`，并把解释器的完整路径记进 lab-profile.md。
@@ -67,7 +67,7 @@ Python 依赖也可以一次装好：`python -m pip install -r requirements.txt`
 1. **先识别材料**（SKILL.md 第 1 步、[intake.md](../skills/lab-report-tex/references/intake.md)）：用 `inventory.py` 粗分，逐个打开确认（照片要看图），把《材料清单》给用户确认。
 2. **写需求清单**并给用户过目。
 3. **转写原始数据并让用户逐项确认**，确认前不写进正文。
-4. 计算 → 作图 → 写 report.tex → `build.py` 编译并核对 → 交付 PDF。
+4. 计算 → 作图 → 写报告：有 LaTeX 写 `report.tex` 用 `build.py` 出 PDF；没有 LaTeX、或老师要 Word，写 `report.md` 用 `build_docx.py` 出 Word（可填学校模板）。都会先验收再交付。
 
 ## 不能做的事
 

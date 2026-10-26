@@ -18,7 +18,7 @@
 |---|---|---|
 | 一台电脑 | Windows 10/11 或 macOS 都可以 | ✅ |
 | Python 3.7+ | 数据处理脚本要跑 | ✅ |
-| XeLaTeX | 把报告编译成 PDF（中文排版必需） | ✅（或改用在线 Overleaf，见[第 2 步的替代方案](#不想装-latex用-overleaf-在线编译)） |
+| XeLaTeX | 出排版最好的 PDF 版 | 可选：不装也能出 Word 版；也可以用在线 Overleaf（见第 2 步） |
 | 一个 AI 客户端 | 豆包工作台 / Claude Code / Codex / Cursor 任一 | ✅ |
 | 你的实验素材 | 讲义/PPT、原始数据照片（手机拍的就行） | 做报告时需要 |
 
@@ -51,7 +51,9 @@ pip install numpy matplotlib pillow pymupdf
 
 ---
 
-## 2. 装 LaTeX（约 15~20 分钟）
+## 2. 装 LaTeX（可选，约 15~20 分钟）
+
+> 不装 LaTeX 也能用：AI 会直接生成 Word 版报告（还能填进学校的 Word 模板）。想要公式和排版更好的 PDF 时再装。
 
 LaTeX 是排版引擎，中文实验报告靠它才能排得漂亮。装一个即可：
 

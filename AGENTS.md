@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本仓库是一个 Agent Skill：用 LaTeX 制作中文理工科实验报告。
+本仓库是一个 Agent Skill：制作中文理工科实验报告——PDF 版（LaTeX，推荐）或 Word 版（不需要 LaTeX，可填学校 Word 模板）。
 
 给 AI 编程助手（Codex、Cursor、WorkBuddy、Claude Code 等）的说明：
 
@@ -14,7 +14,7 @@
 
 - 依赖：`python -m pip install -r requirements.txt`（Python ≥ 3.7）。
 - 改了 `labreport.cls` 或脚本后运行：
-  - `python -m unittest discover -s tests -v`：单元测试（安装保护、csv2tex 转义、build 验收门禁、数据状态、元数据、示例隔离）；
+  - `python -m unittest discover -s tests -v`：单元测试（安装保护、csv2tex 转义、build 与 build_docx 验收门禁、数据状态、元数据、示例隔离、无 LaTeX 运行）；
   - `python tests/run_examples.py --keep`：把示例复制到临时目录重跑，**不会改动仓库文件**，`--keep` 会打印 contact.png 路径供目检。
   - 退出码 3 表示环境依赖缺失（不是代码错误）。
 - 需要更新示例里提交的成品（PDF、tab/、fig/、results.meta.json）时，才在示例目录里直接运行 analysis.py 和 build.py，并在提交说明里写清。

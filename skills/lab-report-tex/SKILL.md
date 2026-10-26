@@ -1,6 +1,6 @@
 ---
 name: lab-report-tex
-description: 按老师的模板和要求，用 LaTeX（XeLaTeX + ctex）把理工科实验（物理、电路电子、光学、材料、化学、力学、仿真等）的讲义/PPT、手写原始数据照片、仪器导出数据和参考报告做成排版规范的中文实验报告 PDF：需求清单、数据转写与核对、拟合作图、逐差法与不确定度、数字自动进正文、封面/评分栏/原始数据页、按规则命名并逐项核对。用户说“做实验报告”“写大物/物理/电路实验报告”“处理实验数据、出图、算不确定度”“把这次实验做成报告/PDF”时使用。不编造测量数据、签名或手写页。
+description: 按老师的模板和要求，把理工科实验（物理、电路电子、光学、材料、化学、力学、仿真等）的讲义/PPT、手写原始数据照片、仪器导出数据和参考报告做成排版规范的中文实验报告（PDF 版用 LaTeX 排版效果最好；没装 LaTeX 或老师要 Word 时直接生成 Word，可填学校的 Word 模板）：需求清单、数据转写与核对、拟合作图、逐差法与不确定度、数字自动进正文、封面/评分栏/原始数据页、按规则命名并逐项核对。用户说“做实验报告”“写大物/物理/电路实验报告”“处理实验数据、出图、算不确定度”“把这次实验做成报告/PDF”时使用。不编造测量数据、签名或手写页。
 license: MIT
 metadata:
   author: ZhuZiheng
@@ -14,7 +14,7 @@ metadata:
 - **要求驱动**：章节、顺序、评分栏、命名、格式都从本次的模板和老师要求里读出来，写成需求清单，最后逐项核对。不套用固定结构。
 - **数字可追溯**：数据 → 脚本 → 宏/表/图 → LaTeX。正文里每个数字都来自脚本输出，改一个数据重跑即可。
 
-下文 `<skill>` 指本文件所在目录。脚本只依赖 Python 3.7+（numpy、matplotlib、pillow，可选 pymupdf）和 XeLaTeX。
+下文 `<skill>` 指本文件所在目录。脚本只依赖 Python 3.7+（numpy、matplotlib、pillow；Word 版要 python-docx；可选 pymupdf）。**XeLaTeX 是可选的**：有它出排版最好的 PDF，没有就出 Word 版。
 
 ## 0. 开工前
 
@@ -80,11 +80,26 @@ python <skill>/scripts/data_status.py freeze data/raw.csv                       
 
 正文写 `$k=\num{\FitK}$`、`$(\XVal\pm\XU)$\,eV`，**不手抄数字**。规则见 [references/data-and-uncertainty.md](references/data-and-uncertainty.md)。
 
-## 6. 写 report.tex
+## 6. 选输出方式，写报告正文
 
-`\labset{...}` 填封面（取自 lab-profile.md；日期、地点不推测）。`labsection` 按 requirements.md 的章节名和顺序写；`\labgrading{...}` 照本次模板的评分项；最后 `\labcomment`、`\labphotos{原始数据}{...}`、`\labphotos{预习试卷}{...}`。各章写法见 [references/writing.md](references/writing.md)，文档类用法与排版坑见 [references/latex.md](references/latex.md)。
+| 情况 | 用哪种 | 写什么 | 生成 |
+|---|---|---|---|
+| 装了 LaTeX，老师收 PDF（**推荐**，排版和公式最好） | PDF 版 | `report.tex` | `build.py` |
+| 老师要求交 Word / 要填学校的 Word 模板 / 没装 LaTeX、用户不想装 | Word 版 | `report.md` | `build_docx.py`（可 `--pdf` 再转 PDF） |
 
-## 7. 编译与核对
+**LaTeX 不是必需的。**`check_env.py` 显示没有 LaTeX 时，先问用户要不要装（几百 MB）；不装就直接用 Word 版，数据、计算、图表、验收流程完全一样。两种都要时，同一套 data/、fig/、results.tex 可以同时生成两份。
+
+**Word 版**：`report.md` 每个 `# 章节名` 对应模板里的一个栏目（不用写“一、”），正文里的数字写 `{{宏名}}`，表 `!表 表题 | data/x.csv`，图 `!图 fig/x.pdf | 图题`（PDF 图会自动转 PNG），公式行 `!式 …`（上下标写 `V_{H}`、`T^{2}`），照片 `!照片 原始数据 | raw/a.jpg`。完整写法见 `scripts/build_docx.py` 开头的说明和 `examples/hall-effect/report.md`。
+
+```
+python <skill>/scripts/build_docx.py report.md --template 模板.docx --name "<命名规则>" --outdir <成品目录> [--pdf]
+```
+
+有模板时：内容填进对应栏目，**栏目名和样式不改**（“数据记录和处理”会填进模板的“数据处理”栏并提示）；封面只往空白处填，模板已有的内容保留；模板里找不到的章节会报错，不会悄悄丢掉。用户说封面自己填就加 `--cover-later`。没有模板时新建一份规范的报告。Word 版公式是普通文字加上下标，复杂公式多的实验更适合 PDF 版。
+
+**PDF 版**：`\labset{...}` 填封面（取自 lab-profile.md；日期、地点不推测）。`labsection` 按 requirements.md 的章节名和顺序写；`\labgrading{...}` 照本次模板的评分项；最后 `\labcomment`、`\labphotos{原始数据}{...}`、`\labphotos{预习试卷}{...}`。各章写法见 [references/writing.md](references/writing.md)，文档类用法与排版坑见 [references/latex.md](references/latex.md)。
+
+## 7. 编译与核对（Word 版的验收规则相同，只是用 build_docx.py，失败时候选稿在 build/candidate/*.candidate.docx）
 
 ```
 python <skill>/scripts/prep_photos.py 照片1.jpg 照片2.jpg@90 --out raw
@@ -96,7 +111,7 @@ python <skill>/scripts/build.py report.tex --require "<requirements.md 里的章
 
 ## 8. 交付
 
-说清三件事：写了什么；核对了什么（数据 ↔ 照片 ↔ CSV ↔ 正文，需求清单逐项）；还缺什么（日期、签字页、需用户确认的数据、需用户自己补的手写内容）。PDF 和 report.tex 一起给。
+说清三件事：写了什么；核对了什么（数据 ↔ 照片 ↔ CSV ↔ 正文，需求清单逐项）；还缺什么（日期、签字页、需用户确认的数据、需用户自己补的手写内容）。成品（PDF 或 .docx）和源文件（report.tex / report.md）一起给。
 
 **返工后**：聊天客户端常缓存同名 PDF 的预览，用户会以为“没改”。重编译时用 `--name` 换新文件名（如加 `-v2`），并提醒用户关掉旧的预览标签重开。说清这一版改了哪几处。
 

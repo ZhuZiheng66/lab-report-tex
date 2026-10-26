@@ -31,7 +31,7 @@
 1. AI 列的**材料清单**对不对；
 2. AI 从照片里认出的**原始数据**对不对（最重要，一个数一个数看）。
 
-确认完，AI 自己计算、作图、排版，交给你 PDF。
+确认完，AI 自己计算、作图、排版，交给你 **PDF 或 Word**：老师要 Word、或者电脑上没装 LaTeX，就直接出 Word（还能填进学校的 Word 模板）；装了 LaTeX 就出排版更好的 PDF。
 
 ---
 
@@ -51,7 +51,7 @@
 | 示例 | 类型 | 用到的处理 |
 |---|---|---|
 | [金属电子逸出功的测定](examples/work-function) → [PDF](examples/work-function/金属电子逸出功的测定.pdf) | 测定一个量 | 多组外延拟合、理查逊直线、不确定度、与公认值比较 |
-| [霍尔效应及其应用](examples/hall-effect) → [PDF](examples/hall-effect/霍尔效应及其应用.pdf) | 特性曲线 + 分布 | 对称测量法计算列、两条输出特性直线、B-x 分布曲线、积商不确定度传递、[需求清单](examples/hall-effect/requirements.md) |
+| [霍尔效应及其应用](examples/hall-effect) → [PDF](examples/hall-effect/霍尔效应及其应用.pdf) · [Word](examples/hall-effect/霍尔效应及其应用.docx) | 特性曲线 + 分布 | 对称测量法计算列、两条输出特性直线、B-x 分布曲线、积商不确定度传递、[需求清单](examples/hall-effect/requirements.md) |
 
 ---
 

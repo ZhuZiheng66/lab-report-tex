@@ -84,7 +84,7 @@ skills/lab-report-tex/
   SKILL.md                 Agent 入口：流程与原则
   references/              按需加载的细节：数据核对、不确定度、LaTeX 用法、写作规范、踩坑记录、课程配置模板
   scripts/                 inventory.py（识别材料） read_template.py（解析模板，含嵌套表） convert_legacy.py（.doc/.ppt 转换）
-                           data_status.py（数据确认状态）  provenance.py（可追溯元数据 results.meta.json）
+                           build_docx.py（Word 版，不需要 LaTeX）  data_status.py（数据确认状态）  provenance.py（可追溯元数据 results.meta.json）
                            build.py  fit_plot.py  uncert.py  csv2tex.py  prep_photos.py  check_env.py  texmacros.py
   templates/               labreport.cls  report.tex  analysis.py
 examples/                  两个完整示例（真实数据，个人信息已替换）

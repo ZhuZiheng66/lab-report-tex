@@ -16,6 +16,7 @@
 
 ## 没有本地 LaTeX 时
 
+0. **直接出 Word 版**（最简单）：`build_docx.py report.md [--template 学校模板.docx] [--pdf]`，只需要 python-docx。
 1. **Overleaf**（最省事）：把工作目录（含 `labreport.cls`、`report.tex`、`fig/`、`tab/`、`raw/`、`results.tex`）打包上传，菜单 → 编译器选 **XeLaTeX**。Overleaf 上中文字体是 Fandol 或 Noto，效果略有不同。
 2. **Tectonic**（单文件编译器，几十 MB，自动下载宏包）：`build.py --engine tectonic`。
 3. 云端沙箱（豆包、扣子等）通常没有 TeX：让 Agent 完成数据处理和 report.tex，用户本地或 Overleaf 编译。
